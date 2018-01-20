@@ -25,7 +25,7 @@ class MainPageController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // fuck
         // Do any additional setup after loading the view.
     }
 
