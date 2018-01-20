@@ -12,6 +12,7 @@ import ARKit
 class ViewController: UIViewController
 {    
     @IBOutlet weak var sceneView: ARSCNView!
+    private var managerInstance:MPCServiceManager? = nil
     
     func getRandomValue (lower:Float, upper:Float) -> Float{
         let arc4randoMax:Double = 0x100000000
@@ -21,8 +22,10 @@ class ViewController: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        managerInstance = MPCServiceManager.sharedInstance
         //addBox()
         addTapGestureToSceneView()
+        
 
         if AppData.currPlayerType == PlayerType.Host {
         for i in 1...1000 {
@@ -119,6 +122,18 @@ class ViewController: UIViewController
         AppData.nodeDict[index] = boxNode
         sceneView.scene.rootNode.addChildNode(boxNode)
     }
+    
+    @IBAction func onSend(_ sender: UIButton) {
+        var messageHash: [String: Any] = [:]
+        messageHash["model"] = 1
+        messageHash["x"] = Float(2)
+        messageHash["y"] = Float(3)
+        messageHash["z"] = Float(4)
+        
+        let data = NSKeyedArchiver.archivedData(withRootObject: messageHash)
+        MPCServiceManager.sharedInstance.send(message: data)
+    }
+    
     func addTapGestureToSceneView() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.didTap(withGestureRecognizer:)))
         sceneView.addGestureRecognizer(tapGestureRecognizer)
