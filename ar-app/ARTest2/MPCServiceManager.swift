@@ -108,7 +108,25 @@ extension MPCServiceManager : MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("did recieved the data \(data)")
+        print("We did recieve the data \(data)")
+        
+        let resultsHash: [String: Any]? = NSKeyedUnarchiver.unarchiveObject(with: data) as! [String : Any]?
+        
+        if (resultsHash != nil && resultsHash?.keys.first != nil) {
+            let messageType:PlayerMessages = PlayerMessages(rawValue: (resultsHash?.keys.first)!)!
+            switch messageType {
+            case .DeleteIndex:
+                print("Delete")
+            case .GetCoordinate:
+                print("Get Coordinate")
+            case .InitialGameHash:
+                print("Initial Game Hash")
+            case .Winner:
+                print("Winner")
+            }
+        }
+        
+
         let str = String(data: data, encoding: .utf8)!
         self.delegate?.valueChanged(manager: self, message: str)
         AppData.currData = str

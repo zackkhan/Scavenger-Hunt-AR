@@ -9,8 +9,9 @@
 import UIKit
 import ARKit
 
-class ViewController: UIViewController {
-    var nodeDict: [Int: SCNNode] = [:]
+class ViewController: UIViewController
+{
+    var nodeDict:[Int: SCNNode] = [:]
     
     @IBOutlet weak var sceneView: ARSCNView!
     

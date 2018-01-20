@@ -15,6 +15,7 @@
 		59656A0820135D76005294F0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59656A0720135D76005294F0 /* AppData.swift */; };
 		59656A0A20135DA8005294F0 /* MPCServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59656A0920135DA8005294F0 /* MPCServiceManager.swift */; };
 		59656A0C20135E02005294F0 /* Extension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59656A0B20135E01005294F0 /* Extension+UIViewController.swift */; };
+		59656A0E2013618A005294F0 /* AppDefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59656A0D2013618A005294F0 /* AppDefs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		59656A0720135D76005294F0 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		59656A0920135DA8005294F0 /* MPCServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPCServiceManager.swift; sourceTree = "<group>"; };
 		59656A0B20135E01005294F0 /* Extension+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIViewController.swift"; sourceTree = "<group>"; };
+		59656A0D2013618A005294F0 /* AppDefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				59656A0720135D76005294F0 /* AppData.swift */,
 				59656A0920135DA8005294F0 /* MPCServiceManager.swift */,
 				59656A0B20135E01005294F0 /* Extension+UIViewController.swift */,
+				59656A0D2013618A005294F0 /* AppDefs.swift */,
 			);
 			path = ARTest2;
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 				59656A0A20135DA8005294F0 /* MPCServiceManager.swift in Sources */,
 				59656A0C20135E02005294F0 /* Extension+UIViewController.swift in Sources */,
 				59656A0820135D76005294F0 /* AppData.swift in Sources */,
+				59656A0E2013618A005294F0 /* AppDefs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
