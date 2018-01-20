@@ -24,13 +24,20 @@ class ViewController: UIViewController
         //addBox()
         addTapGestureToSceneView()
         
+        if AppData.currPlayerType == PlayerType.Host {
         for i in 1...1000 {
             let r_x = getRandomValue(lower: -3.0, upper: 5.0), r_y = getRandomValue(lower: -3.0, upper: 5.0),
             r_z = getRandomValue(lower: -3.0, upper: 5.0)
             let random_color = Int(arc4random_uniform(4))
             addBox(x: r_x, y: r_y, z: r_z, color: random_color, index: i)
-        }
+            }
         // Host sends signal now
+            var dataDict: [PlayerMessages:[Int: SCNNode]] = [:]
+            dataDict[PlayerMessages.InitialGameHash] = AppData.nodeDict
+            let data = NSKeyedArchiver.archivedData(withRootObject: dataDict)
+            MPCServiceManager.sharedInstance.send(message: data)
+    }
+      
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -97,7 +104,7 @@ class ViewController: UIViewController
                 // send the key to delete
                 var deleteDict:[PlayerMessages: Int] = [:]
                 deleteDict[PlayerMessages.DeleteIndex] = key
-                let data = NSKeyedArchiver.archivedData(withRootObject: AppData.nodeDict)
+                let data = NSKeyedArchiver.archivedData(withRootObject: deleteDict)
                 MPCServiceManager.sharedInstance.send(message: data)
             }
         }
