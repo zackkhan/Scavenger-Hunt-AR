@@ -14,19 +14,17 @@ class ViewController: UIViewController
     @IBOutlet weak var sceneView: ARSCNView!
     private var managerInstance:MPCServiceManager? = nil
     
-    func getRandomValue (lower:Float, upper:Float) -> Float{
-        let arc4randoMax:Double = 0x100000000
-        let ab = (Double(arc4random()) / arc4randoMax)
-        return Float(ab) * (upper - lower) + lower
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        managerInstance = MPCServiceManager.sharedInstance
-        //addBox()
-        addTapGestureToSceneView()
+        initialize()
         
-
+        switch AppData.currPlayerType {
+        case .Host:
+            print("Host")
+        case .Player:
+            print("Player")
+        }
+        
         if AppData.currPlayerType == PlayerType.Host {
         for i in 1...1000 {
             let r_x = getRandomValue(lower: -3.0, upper: 5.0), r_y = getRandomValue(lower: -3.0, upper: 5.0),
@@ -49,6 +47,8 @@ class ViewController: UIViewController
     }
       
     }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let configuration = ARWorldTrackingConfiguration()
@@ -58,6 +58,12 @@ class ViewController: UIViewController
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         sceneView.session.pause()
+    }
+    
+    private func initialize() {
+        managerInstance = MPCServiceManager.sharedInstance
+        addTapGestureToSceneView()
+        AppData.CurrentViewController = self
     }
     
     func addModel(x: Float = 0, y: Float = 0, z: Float = -0.2, index:Int) {
@@ -172,10 +178,26 @@ class ViewController: UIViewController
     
     
 }
+
+extension ViewController: MPCServiceManagerDelegate {
+    func connectedDeviceChanged(manager: MPCServiceManager, connectedDevices: [String]) {
+        if (connectedDevices.count > 0) {
+            
+        }
+    }
+    
+    func valueChanged(manager: MPCServiceManager, message: String) {
+        print("Value Changed")
+    }
+    
+    
+}
+
 extension float4x4 {
     var translation: float3 {
         let translation = self.columns.3
         return float3(translation.x, translation.y, translation.z)
     }
 }
+
 
