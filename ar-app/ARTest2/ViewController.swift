@@ -10,9 +10,7 @@ import UIKit
 import ARKit
 
 class ViewController: UIViewController
-{
-    var nodeDict:[Int: SCNNode] = [:]
-    
+{    
     @IBOutlet weak var sceneView: ARSCNView!
     
     func getRandomValue (lower:Float, upper:Float) -> Float{
@@ -75,7 +73,7 @@ class ViewController: UIViewController
         print(y)
         print(z)
         
-        nodeDict[index] = boxNode
+        AppData.nodeDict[index] = boxNode
         sceneView.scene.rootNode.addChildNode(boxNode)
     }
     func addTapGestureToSceneView() {
@@ -90,12 +88,31 @@ class ViewController: UIViewController
             let hitTestResultsWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
             if let hitTestResultWithFeaturePoints = hitTestResultsWithFeaturePoints.first {
                 let translation = hitTestResultWithFeaturePoints.worldTransform.translation
-                // addBox(x: translation.x, y: translation.y, z: translation.z)
+                //addBox
             }
             return
         }
+        for (key, value) in AppData.nodeDict {
+            if (value == node) {
+                // send the key to delete
+                var deleteDict:[PlayerMessages: Int] = [:]
+                deleteDict[PlayerMessages.DeleteIndex] = key
+                let data = NSKeyedArchiver.archivedData(withRootObject: AppData.nodeDict)
+                MPCServiceManager.sharedInstance.send(message: data)
+            }
+        }
         node.removeFromParentNode()
     }
+    
+    override func onGetData(message: String) {
+        print("Hello")
+    }
+    
+    override func addNode(node: SCNNode) {
+        sceneView.scene.rootNode.addChildNode(node)
+    }
+    
+    
 }
 extension float4x4 {
     var translation: float3 {

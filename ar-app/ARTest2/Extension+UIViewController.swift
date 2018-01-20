@@ -8,13 +8,19 @@
 
 import Foundation
 import UIKit
+import ARKit
 
 protocol Listener {
     func onGetData(message:String)
+    func addNode(node: SCNNode)
 }
-extension UIViewController: Listener {
-    func onGetData(message: String) {
-        
+extension UIViewController {
+    @objc func addNode(node: SCNNode) {
+        print("Adding Node")
+    }
+    
+    @objc func onGetData(message: String) {
+        print("Got Data of \(message)")
     }
     
     

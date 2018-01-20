@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import ARKit
 
 class AppData: NSObject {
     static var currData:String = ""
     static var CurrentViewController:UIViewController? = nil
     static var currPlayerType:PlayerType = .Player
+    static var nodeDict:[Int: SCNNode] = [:]
 }
