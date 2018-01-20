@@ -25,13 +25,13 @@ class ViewController: UIViewController {
         //addBox()
         addTapGestureToSceneView()
         
-        for index in 1...1000 {
+        for i in 1...1000 {
             let r_x = getRandomValue(lower: -3.0, upper: 5.0), r_y = getRandomValue(lower: -3.0, upper: 5.0),
             r_z = getRandomValue(lower: -3.0, upper: 5.0)
             let random_color = Int(arc4random_uniform(4))
-            addBox(x: r_x, y: r_y, z: r_z, color: random_color)
+            addBox(x: r_x, y: r_y, z: r_z, color: random_color, index: i)
         }
-        // Do any additional setup after loading the view, typically from a nib.
+        // Host sends signal now
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -44,12 +44,12 @@ class ViewController: UIViewController {
         sceneView.session.pause()
     }
     
-    func addBox(x: Float = 0, y: Float = 0, z: Float = -0.2, color:Int = 1) {
+    func addBox(x: Float = 0, y: Float = 0, z: Float = -0.2, color:Int = 1, index:Int) {
         let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
-        
         let boxNode = SCNNode()
         boxNode.geometry = box
         boxNode.position = SCNVector3(x, y, z)
+        
         let material = SCNMaterial()
         switch(color) {
         case 0:
@@ -74,6 +74,7 @@ class ViewController: UIViewController {
         print(y)
         print(z)
         
+        nodeDict[index] = boxNode
         sceneView.scene.rootNode.addChildNode(boxNode)
     }
     func addTapGestureToSceneView() {
@@ -88,7 +89,7 @@ class ViewController: UIViewController {
             let hitTestResultsWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
             if let hitTestResultWithFeaturePoints = hitTestResultsWithFeaturePoints.first {
                 let translation = hitTestResultWithFeaturePoints.worldTransform.translation
-                addBox(x: translation.x, y: translation.y, z: translation.z)
+                // addBox(x: translation.x, y: translation.y, z: translation.z)
             }
             return
         }
