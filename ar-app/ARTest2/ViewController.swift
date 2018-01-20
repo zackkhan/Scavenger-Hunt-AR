@@ -26,11 +26,11 @@ class ViewController: UIViewController
         //addBox()
         addTapGestureToSceneView()
         
-        for i in 1...1000 {
+        for i in 1...100 {
             let r_x = getRandomValue(lower: -3.0, upper: 5.0), r_y = getRandomValue(lower: -3.0, upper: 5.0),
             r_z = getRandomValue(lower: -3.0, upper: 5.0)
             let random_color = Int(arc4random_uniform(4))
-            addBox(x: r_x, y: r_y, z: r_z, color: random_color, index: i)
+            addModel(x: r_x, y: r_y, z: r_z, index: i % 4)
         }
         // Host sends signal now
     }
@@ -43,6 +43,35 @@ class ViewController: UIViewController
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         sceneView.session.pause()
+    }
+    
+    func addModel(x: Float = 0, y: Float = 0, z: Float = -0.2, index:Int) {
+        let node = SCNNode()
+        var mObj:ModelAR? = nil
+        switch (index) {
+            case 0:
+                mObj = ModelAR.PENGUIN
+                break;
+            case 1:
+                mObj = ModelAR.SUNGLASSES
+                break;
+            case 2:
+                mObj = ModelAR.SOCCER
+                break;
+            case 3:
+                mObj = ModelAR.BALL
+                break;
+            default:
+                return
+        }
+        let geoScene = SCNScene(named: mObj!.name!)
+        let nodeArray = geoScene!.rootNode.childNodes
+        for childNode in nodeArray {
+            node.addChildNode(childNode as SCNNode)
+        }
+        node.scale = SCNVector3(x: mObj!.x!, y: mObj!.y!, z: mObj!.z!)
+        node.position = SCNVector3(x, y, z)
+        sceneView.scene.rootNode.addChildNode(node)
     }
     
     func addBox(x: Float = 0, y: Float = 0, z: Float = -0.2, color:Int = 1, index:Int) {
