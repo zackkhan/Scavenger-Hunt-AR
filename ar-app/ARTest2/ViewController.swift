@@ -34,7 +34,14 @@ class ViewController: UIViewController
         // Host sends signal now
             var dataDict: [PlayerMessages:[Int: SCNNode]] = [:]
             dataDict[PlayerMessages.InitialGameHash] = AppData.nodeDict
-            let data = NSKeyedArchiver.archivedData(withRootObject: dataDict)
+            //let data = NSKeyedArchiver.archivedData(withRootObject: dataDict)
+            var messageHash: [String: Any] = [:]
+            messageHash["model"] = 1
+            messageHash["x"] = Float(2)
+            messageHash["y"] = Float(3)
+            messageHash["z"] = Float(4)
+            
+            let data = NSKeyedArchiver.archivedData(withRootObject: messageHash)
             MPCServiceManager.sharedInstance.send(message: data)
     }
       
