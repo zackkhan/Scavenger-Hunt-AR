@@ -14,6 +14,7 @@
 		14BB2EC92013336400D8EBF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14BB2EC72013336400D8EBF5 /* LaunchScreen.storyboard */; };
 		30C561AB20136A7100BF7B2C /* ModelAR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C561AA20136A7100BF7B2C /* ModelAR.swift */; };
 		30C561AD20136D7A00BF7B2C /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 30C561AC20136D7900BF7B2C /* art.scnassets */; };
+		30C561B32013FB8200BF7B2C /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C561B22013FB8200BF7B2C /* LobbyViewController.swift */; };
 		594F00612013F4E900A3B0A6 /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594F00602013F4E900A3B0A6 /* MainPageController.swift */; };
 		59656A0820135D76005294F0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59656A0720135D76005294F0 /* AppData.swift */; };
 		59656A0A20135DA8005294F0 /* MPCServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59656A0920135DA8005294F0 /* MPCServiceManager.swift */; };
@@ -31,6 +32,7 @@
 		14BB2ECA2013336400D8EBF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30C561AA20136A7100BF7B2C /* ModelAR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAR.swift; sourceTree = "<group>"; };
 		30C561AC20136D7900BF7B2C /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		30C561B22013FB8200BF7B2C /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		594F00602013F4E900A3B0A6 /* MainPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
 		59656A0720135D76005294F0 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		59656A0920135DA8005294F0 /* MPCServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPCServiceManager.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				30C561AA20136A7100BF7B2C /* ModelAR.swift */,
 				30C561AC20136D7900BF7B2C /* art.scnassets */,
 				594F00602013F4E900A3B0A6 /* MainPageController.swift */,
+				30C561B22013FB8200BF7B2C /* LobbyViewController.swift */,
 			);
 			path = ARTest2;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 				59656A0A20135DA8005294F0 /* MPCServiceManager.swift in Sources */,
 				59656A0C20135E02005294F0 /* Extension+UIViewController.swift in Sources */,
 				30C561AB20136A7100BF7B2C /* ModelAR.swift in Sources */,
+				30C561B32013FB8200BF7B2C /* LobbyViewController.swift in Sources */,
 				59656A0820135D76005294F0 /* AppData.swift in Sources */,
 				59656A0E2013618A005294F0 /* AppDefs.swift in Sources */,
 			);
@@ -303,11 +307,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 235JTA7TYE;
+				DEVELOPMENT_TEAM = K74E6J262X;
 				INFOPLIST_FILE = ARTest2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tamer4.ARTest2b;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tamer4.ARTest2c;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -319,11 +323,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 235JTA7TYE;
+				DEVELOPMENT_TEAM = K74E6J262X;
 				INFOPLIST_FILE = ARTest2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tamer4.ARTest2b;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tamer4.ARTest2c;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
