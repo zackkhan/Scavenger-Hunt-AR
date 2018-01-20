@@ -10,15 +10,17 @@ import UIKit
 import ARKit
 
 class ViewController: UIViewController
-{
-    var nodeDict:[Int: SCNNode] = [:]
-    
+{    
     @IBOutlet weak var sceneView: ARSCNView!
     
     func getRandomValue (lower:Float, upper:Float) -> Float{
         let arc4randoMax:Double = 0x100000000
         let ab = (Double(arc4random()) / arc4randoMax)
         return Float(ab) * (upper - lower) + lower
+    }
+    
+    func addNode(node: SCNNode) {
+        sceneView.scene.rootNode.addChildNode(node)
     }
     
     override func viewDidLoad() {
@@ -75,7 +77,7 @@ class ViewController: UIViewController
         print(y)
         print(z)
         
-        nodeDict[index] = boxNode
+        AppData.nodeDict[index] = boxNode
         sceneView.scene.rootNode.addChildNode(boxNode)
     }
     func addTapGestureToSceneView() {
@@ -90,9 +92,18 @@ class ViewController: UIViewController
             let hitTestResultsWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
             if let hitTestResultWithFeaturePoints = hitTestResultsWithFeaturePoints.first {
                 let translation = hitTestResultWithFeaturePoints.worldTransform.translation
-                // addBox(x: translation.x, y: translation.y, z: translation.z)
+                //addBox
             }
             return
+        }
+        for (key, value) in AppData.nodeDict {
+            if (value = node) {
+                // send the key to delete
+                var deleteDict:[PlayerMessages: Int] = [:]
+                deleteDict[PlayerMessages.DeleteIndex] = key
+                var data = NSKeyedArchiver.archivedData(withRootObject: AppData.nodeDict)
+                MPCServiceManager.sharedInstance.send(message: data)
+            }
         }
         node.removeFromParentNode()
     }

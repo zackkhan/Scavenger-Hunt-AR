@@ -11,4 +11,5 @@ import UIKit
 class AppData: NSObject {
     static var currData:String = ""
     static var CurrentViewController:UIViewController? = nil
+    static var nodeDict:[Int: SCNNode] = [:]
 }

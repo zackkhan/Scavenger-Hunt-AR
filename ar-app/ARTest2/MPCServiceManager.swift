@@ -53,16 +53,17 @@ class MPCServiceManager: NSObject {
         self.serviceAdvertiser.startAdvertisingPeer()
         self.serviceBrowser.startBrowsingForPeers()
     }
-    
-    func send(message:String) {
+   
+    func send(message:Data) {
         if session.connectedPeers.count > 0 {
             do {
-                try self.session.send(message.data(using: .utf8)!, toPeers: session.connectedPeers, with: .reliable)
+                try self.session.send(message, toPeers: session.connectedPeers, with: .reliable)
             } catch let error {
                 print(error)
             }
         }
     }
+    
     
     deinit {
         // deinitialize the object by stopping functions
@@ -113,14 +114,18 @@ extension MPCServiceManager : MCSessionDelegate {
         let resultsHash: [String: Any]? = NSKeyedUnarchiver.unarchiveObject(with: data) as! [String : Any]?
         
         if (resultsHash != nil && resultsHash?.keys.first != nil) {
+            var value = resultsHash![resultsHash!.keys.first!]!
             let messageType:PlayerMessages = PlayerMessages(rawValue: (resultsHash?.keys.first)!)!
             switch messageType {
             case .DeleteIndex:
-                print("Delete")
+                AppData.nodeDict[Int(value)].removeFromParentNode()
             case .GetCoordinate:
                 print("Get Coordinate")
             case .InitialGameHash:
-                print("Initial Game Hash")
+                AppData.nodeDict = value
+                for key in AppData.nodeDict {
+                    ViewController.addNode(AppData.nodeDict[key])
+                }
             case .Winner:
                 print("Winner")
             }
