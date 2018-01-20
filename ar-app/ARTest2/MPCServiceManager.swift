@@ -8,6 +8,7 @@
 
 import UIKit
 import MultipeerConnectivity
+import ARKit
 
 protocol MPCServiceManagerDelegate {
     func connectedDeviceChanged(manager: MPCServiceManager, connectedDevices: [String])
@@ -53,16 +54,17 @@ class MPCServiceManager: NSObject {
         self.serviceAdvertiser.startAdvertisingPeer()
         self.serviceBrowser.startBrowsingForPeers()
     }
-    
-    func send(message:String) {
+   
+    func send(message:Data) {
         if session.connectedPeers.count > 0 {
             do {
-                try self.session.send(message.data(using: .utf8)!, toPeers: session.connectedPeers, with: .reliable)
+                try self.session.send(message, toPeers: session.connectedPeers, with: .reliable)
             } catch let error {
                 print(error)
             }
         }
     }
+    
     
     deinit {
         // deinitialize the object by stopping functions
@@ -110,27 +112,51 @@ extension MPCServiceManager : MCSessionDelegate {
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("We did recieve the data \(data)")
         
-        let resultsHash: [String: Any]? = NSKeyedUnarchiver.unarchiveObject(with: data) as! [String : Any]?
+        if (AppData.currPlayerType == .Player)
+        {
+            onPlayerReceivedData(session: session, didReceieve: data, fromPeer: peerID)
+        }
+        else
+        {
+            onHostReceivedData(session: session, didReceieve: data, fromPeer: peerID)
+        }
         
+    }
+    
+    func onPlayerReceivedData(session: MCSession, didReceieve data: Data, fromPeer peerID: MCPeerID) {
+        let resultsHash: [String: Any]? = NSKeyedUnarchiver.unarchiveObject(with: data) as! [String : Any]?
         if (resultsHash != nil && resultsHash?.keys.first != nil) {
             let messageType:PlayerMessages = PlayerMessages(rawValue: (resultsHash?.keys.first)!)!
             switch messageType {
             case .DeleteIndex:
-                print("Delete")
+                let value: Int = resultsHash![resultsHash!.keys.first!]! as! Int
+                AppData.nodeDict[value]?.removeFromParentNode()
+                
             case .GetCoordinate:
                 print("Get Coordinate")
+                
             case .InitialGameHash:
-                print("Initial Game Hash")
+                let value: [Int: SCNNode] = resultsHash![resultsHash!.keys.first!]! as! [Int: SCNNode]
+                AppData.nodeDict = value
+                for key in AppData.nodeDict.keys {
+                    AppData.CurrentViewController?.addNode(node: AppData.nodeDict[key]!)
+                }
+                
             case .Winner:
                 print("Winner")
             }
         }
-        
-
-        let str = String(data: data, encoding: .utf8)!
-        self.delegate?.valueChanged(manager: self, message: str)
-        AppData.currData = str
-        AppData.CurrentViewController?.onGetData(message: str)
+    }
+    
+    func onHostReceivedData(session: MCSession, didReceieve data: Data, fromPeer peerID: MCPeerID) {
+        let resultsHash: [String: Any]? = NSKeyedUnarchiver.unarchiveObject(with: data) as! [String : Any]?
+        if (resultsHash != nil && resultsHash?.keys.first != nil) {
+            let messageType:HostMessages = HostMessages(rawValue: (resultsHash?.keys.first)!)!
+            switch messageType {
+            case .DeleteIndex :
+                print("Delete Index")
+            }
+        }
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {

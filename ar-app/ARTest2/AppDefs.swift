@@ -17,4 +17,10 @@ enum PlayerMessages: String {
 
 enum HostMessages: String {
     case DeleteIndex = "DeleteIndex"
+    
+}
+
+enum PlayerType: String {
+    case Host = "Host"
+    case Player = "Player"
 }

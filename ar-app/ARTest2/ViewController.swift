@@ -10,9 +10,7 @@ import UIKit
 import ARKit
 
 class ViewController: UIViewController
-{
-    var nodeDict:[Int: SCNNode] = [:]
-    
+{    
     @IBOutlet weak var sceneView: ARSCNView!
     
     func getRandomValue (lower:Float, upper:Float) -> Float{
@@ -25,14 +23,21 @@ class ViewController: UIViewController
         super.viewDidLoad()
         //addBox()
         addTapGestureToSceneView()
-        
-        for i in 1...100 {
+
+        if AppData.currPlayerType == PlayerType.Host {
+        for i in 1...1000 {
             let r_x = getRandomValue(lower: -3.0, upper: 5.0), r_y = getRandomValue(lower: -3.0, upper: 5.0),
             r_z = getRandomValue(lower: -3.0, upper: 5.0)
             let random_color = Int(arc4random_uniform(4))
-            addModel(x: r_x, y: r_y, z: r_z, index: i % 4)
+            addBox(x: r_x, y: r_y, z: r_z, color: random_color, index: i)
         }
         // Host sends signal now
+            var dataDict: [PlayerMessages:[Int: SCNNode]] = [:]
+            dataDict[PlayerMessages.InitialGameHash] = AppData.nodeDict
+            let data = NSKeyedArchiver.archivedData(withRootObject: dataDict)
+            MPCServiceManager.sharedInstance.send(message: data)
+    }
+      
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -104,7 +109,7 @@ class ViewController: UIViewController
         print(y)
         print(z)
         
-        nodeDict[index] = boxNode
+        AppData.nodeDict[index] = boxNode
         sceneView.scene.rootNode.addChildNode(boxNode)
     }
     func addTapGestureToSceneView() {
@@ -119,12 +124,31 @@ class ViewController: UIViewController
             let hitTestResultsWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
             if let hitTestResultWithFeaturePoints = hitTestResultsWithFeaturePoints.first {
                 let translation = hitTestResultWithFeaturePoints.worldTransform.translation
-                // addBox(x: translation.x, y: translation.y, z: translation.z)
+                //addBox
             }
             return
         }
+        for (key, value) in AppData.nodeDict {
+            if (value == node) {
+                // send the key to delete
+                var deleteDict:[PlayerMessages: Int] = [:]
+                deleteDict[PlayerMessages.DeleteIndex] = key
+                let data = NSKeyedArchiver.archivedData(withRootObject: deleteDict)
+                MPCServiceManager.sharedInstance.send(message: data)
+            }
+        }
         node.removeFromParentNode()
     }
+    
+    override func onGetData(message: String) {
+        print("Hello")
+    }
+    
+    override func addNode(node: SCNNode) {
+        sceneView.scene.rootNode.addChildNode(node)
+    }
+    
+    
 }
 extension float4x4 {
     var translation: float3 {
