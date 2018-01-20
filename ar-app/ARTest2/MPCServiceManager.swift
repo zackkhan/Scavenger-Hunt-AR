@@ -106,7 +106,9 @@ extension MPCServiceManager : MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         print("the Peer \(peerID) changed the state \(state)")
         self.delegate?.connectedDeviceChanged(manager: self, connectedDevices: session.connectedPeers.map{$0.displayName})
-        
+        if (session.connectedPeers.count > 0) {
+            send(message: <#T##Data#>)
+        }
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {

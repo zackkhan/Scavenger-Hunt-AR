@@ -19,26 +19,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2jM-c2-YU5">
-                                <rect key="frame" x="0.0" y="20" width="414" height="676"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9cf-J8-30W">
-                                <rect key="frame" x="0.0" y="696" width="414" height="40"/>
-                                <state key="normal" title="Send Message"/>
-                                <connections>
-                                    <action selector="onSend:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tNP-ae-g9n"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2jM-c2-YU5" secondAttribute="trailing" id="6OH-4R-c7I"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9cf-J8-30W" secondAttribute="trailing" id="CVq-BB-Mgn"/>
                             <constraint firstItem="2jM-c2-YU5" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Ush-rE-ANV"/>
                             <constraint firstItem="2jM-c2-YU5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="YWb-0k-cCt"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2jM-c2-YU5" secondAttribute="bottom" constant="40" id="bP9-zt-d08"/>
-                            <constraint firstItem="9cf-J8-30W" firstAttribute="top" secondItem="2jM-c2-YU5" secondAttribute="bottom" id="cl4-4o-mbn"/>
-                            <constraint firstItem="9cf-J8-30W" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="d64-by-bVq"/>
-                            <constraint firstItem="9cf-J8-30W" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="dd7-If-9NP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2jM-c2-YU5" secondAttribute="bottom" id="bP9-zt-d08"/>
                             <constraint firstItem="2jM-c2-YU5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gtF-8z-RqI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2jM-c2-YU5" secondAttribute="trailing" id="wIZ-g2-j8q"/>
                         </constraints>

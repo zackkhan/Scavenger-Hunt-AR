@@ -15,9 +15,13 @@ class MainPageController: UIViewController {
     @IBOutlet weak var btnJoinGame: UIButton!
     
     @IBAction func onCreateGame(_ sender: UIButton) {
+        AppData.currPlayerType = .Host
+        self.performSegue(withIdentifier: "moveToGame", sender: nil)
     }
     
     @IBAction func onJoinGame(_ sender: UIButton) {
+        AppData.currPlayerType = .Player
+        self.performSegue(withIdentifier: "moveToGame", sender: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
