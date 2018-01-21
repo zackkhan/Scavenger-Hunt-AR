@@ -35,7 +35,6 @@ class ViewController: UIViewController
             } else {
                 print("Im on Background")
             }
-                // Spinner.show("Waiting for Host to Hide Object...")
         }
         addTapGestureToSceneView()
         AppData.CurrentViewController = self
@@ -94,7 +93,7 @@ class ViewController: UIViewController
                 return
             }
             
-            if (node == AppData.hostObjectNode){
+            if (node.worldPosition.x == AppData.hostObjectNode?.position.x && node.worldPosition.y == AppData.hostObjectNode?.position.y && node.worldPosition.z == AppData.hostObjectNode?.position.z){
              Socket.sharedInstance.sendWinEmit()
              return
             }
