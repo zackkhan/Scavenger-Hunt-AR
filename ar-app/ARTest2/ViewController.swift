@@ -105,6 +105,9 @@ class ViewController: UIViewController
         
         
     }
+    func showAndPlayGame() {
+        loadGameMap()
+    }
     
     override func onGetData(message: String) {
         print("Hello")

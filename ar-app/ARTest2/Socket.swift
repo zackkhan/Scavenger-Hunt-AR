@@ -120,6 +120,9 @@ class Socket: NSObject {
             let counter = AppData.nodeDict.count
             AppData.nodeDict[counter] = toAddNode
             SwiftSpinner.hide()
+            if (AppData.CurrentViewController is ViewController) {
+                (AppData.CurrentViewController as! ViewController).showAndPlayGame()
+            }
         }
         socket.on("deleteObject") {(dataArray, socketAck) -> Void in
             let index:Int = dataArray[0] as! Int
