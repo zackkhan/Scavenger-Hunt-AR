@@ -142,7 +142,7 @@ extension MPCServiceManager : MCSessionDelegate {
         let resultsHash: [String: Any]? = NSKeyedUnarchiver.unarchiveObject(with: data) as! [String : Any]?
         if (resultsHash != nil && resultsHash?.keys.first != nil) {
             let messageType:PlayerMessages = PlayerMessages(rawValue: (resultsHash?.keys.first)!)!
-            switch messageType {
+            switch (messageType) {
             case .DeleteIndex:
                 let value: Int = resultsHash![resultsHash!.keys.first!]! as! Int
                 AppData.nodeDict[value]?.removeFromParentNode()

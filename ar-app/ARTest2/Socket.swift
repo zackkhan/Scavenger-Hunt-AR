@@ -14,7 +14,7 @@ import ARKit
 class Socket: NSObject {
     
     static let sharedInstance:Socket = Socket()
-    let manager = SocketManager(socketURL: URL(string: "http://server-po-dev.us-east-1.elasticbeanstalk.com/")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "server-scavenger-dev.us-east-1.elasticbeanstalk.com")!, config: [.log(true), .compress])
     
     override init() {
         super.init()
