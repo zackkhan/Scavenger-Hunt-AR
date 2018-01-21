@@ -8,7 +8,7 @@
 
 import UIKit
 import ARKit
-import SwiftSpinner
+
 class ViewController: UIViewController
 {    
     @IBOutlet weak var sceneView: ARSCNView!
@@ -73,7 +73,7 @@ class ViewController: UIViewController
                     let hitTestResultsWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
                     if let hitTestResultWithFeaturePoints = hitTestResultsWithFeaturePoints.first {
                         let translation = hitTestResultWithFeaturePoints.worldTransform.translation
-                        let modelNum: Int = Int(arc4random_uniform(4))
+                        let modelNum: Int = 0
                         let x:Float = translation.x
                         let y: Float = translation.y
                         let z: Float = translation.z
