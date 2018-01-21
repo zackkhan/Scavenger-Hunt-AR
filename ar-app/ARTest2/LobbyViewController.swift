@@ -11,6 +11,9 @@ import MultipeerConnectivity
 
 class LobbyViewController: UIViewController {
 
+    @IBAction func mapAction(_ sender: Any) {
+        Socket.sharedInstance.emit
+    }
     @IBOutlet weak var readyButton: UIButton!
     @IBOutlet weak var countLabel: UILabel!
     
