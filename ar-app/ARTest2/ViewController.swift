@@ -93,6 +93,11 @@ class ViewController: UIViewController
             guard let node = hitTestResults.first?.node else {
                 return
             }
+            
+            if (node == AppData.hostObjectNode){
+             Socket.sharedInstance.sendWinEmit()
+             return
+            }
             for (key, value) in AppData.nodeDict {
                 if (value == node) {
                     // send the key to delete
