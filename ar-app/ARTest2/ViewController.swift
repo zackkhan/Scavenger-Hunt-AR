@@ -12,7 +12,6 @@ import ARKit
 class ViewController: UIViewController
 {    
     @IBOutlet weak var sceneView: ARSCNView!
-    private var managerInstance:MPCServiceManager? = nil
     
     func getRandomValue (lower:Float, upper:Float) -> Float{
         let arc4randoMax:Double = 0x100000000
@@ -20,35 +19,20 @@ class ViewController: UIViewController
         return Float(ab) * (upper - lower) + lower
     }
     
+    func createGameMap() {
+        for prop in AppData.propsDict {
+            addModel(x: prop["x"] as! Float, y: prop["y"] as! Float, z: prop["z"] as! Float, modelNum: prop["model"] as! Int)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        managerInstance = MPCServiceManager.sharedInstance
-        //addBox()
         addTapGestureToSceneView()
-        
-
         if AppData.currPlayerType == PlayerType.Host {
-        for i in 1...1000 {
-            let r_x = getRandomValue(lower: -3.0, upper: 5.0), r_y = getRandomValue(lower: -3.0, upper: 5.0),
-            r_z = getRandomValue(lower: -3.0, upper: 5.0)
-            let random_color = Int(arc4random_uniform(4))
-            addBox(x: r_x, y: r_y, z: r_z, color: random_color, index: i)
+            createGameMap()
         }
-        // Host sends signal now
-            var dataDict: [PlayerMessages:[Int: SCNNode]] = [:]
-            dataDict[PlayerMessages.InitialGameHash] = AppData.nodeDict
-            //let data = NSKeyedArchiver.archivedData(withRootObject: dataDict)
-            var messageHash: [String: Any] = [:]
-            messageHash["model"] = 1
-            messageHash["x"] = Float(2)
-            messageHash["y"] = Float(3)
-            messageHash["z"] = Float(4)
-            
-            let data = NSKeyedArchiver.archivedData(withRootObject: messageHash)
-            MPCServiceManager.sharedInstance.send(message: data)
     }
-      
-    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let configuration = ARWorldTrackingConfiguration()
@@ -60,10 +44,10 @@ class ViewController: UIViewController
         sceneView.session.pause()
     }
     
-    func addModel(x: Float = 0, y: Float = 0, z: Float = -0.2, index:Int) {
+    func addModel(x: Float = 0, y: Float = 0, z: Float = -0.2, modelNum: Int) {
         let node = SCNNode()
         var mObj:ModelAR? = nil
-        switch (index) {
+        switch (modelNum) {
             case 0:
                 mObj = ModelAR.PENGUIN
                 break;
