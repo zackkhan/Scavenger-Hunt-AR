@@ -80,7 +80,10 @@ class ViewController: UIViewController
                         let z: Float = translation.z
                         Socket.sharedInstance.addTargetObject(modelNum: modelNum, x: x, y: y, z: z)
                         let node:SCNNode = SCNNode.buildFromParams(modelNum: modelNum, x: x, y: y, z: z)
-                        sceneView.scene.rootNode.addChildNode(node)
+                        didDropTarget = true
+                        OperationQueue.main.addOperation {
+                            self.sceneView.scene.rootNode.addChildNode(node)
+                        }
                     }
                 return
             }
