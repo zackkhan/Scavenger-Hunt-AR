@@ -14,7 +14,7 @@ import ARKit
 class Socket: NSObject {
     
     static let sharedInstance:Socket = Socket()
-    let manager = SocketManager(socketURL: URL(string: "http://server-po-dev.us-east-1.elasticbeanstalk.com/")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "http://server-scavenger-dev.us-east-1.elasticbeanstalk.com/")!, config: [.log(true), .compress])
     
     override init() {
         super.init()
@@ -23,7 +23,6 @@ class Socket: NSObject {
     func establishConnection() {
         let socket = manager.defaultSocket
         socket.on(clientEvent: .connect) {data, ack in
-            self.getUIState()
             print("Log: socket connected")
         }
         socket.connect()
@@ -81,20 +80,40 @@ class Socket: NSObject {
         socket.emit("ready", readyJson)
     }
     
+    func getGameMap() {
+        let socket = manager.defaultSocket
+        socket.emit("getGameMap", "Foo")
+    }
+    
+    func generateGameMap() {
+        let socket = manager.defaultSocket
+        socket.emit("generateGameMap", "Fuck You")
+    }
+    
     
     
     private func listenForOtherMessages() {
         let socket = manager.defaultSocket
         
         socket.on("gameMap") { (dataArray, socketAck) -> Void in
-            let myJsonArray:Array<[Int: [String: Any]]> = dataArray[0] as! Array<[Int: [String: Any]]>
-            for map in myJsonArray{
+            let myJsonArray:Array<[String: Any]> = dataArray[0] as! Array<[String: Any]>
+            
+            for index in 0...(myJsonArray.count - 1) {
+                let myJson: [String: Any] = myJsonArray[index]
+                let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: myJson)!
+                AppData.nodeDict[index] = toAddNode
+
+            }
+            
+           /* for map in myJsonArray{
                 let index:Int = map.keys.first!
                 let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: map[index]!)!
                 
                 AppData.nodeDict[index] = toAddNode
                 
-            }
+            }*/
+            let currentView: UIViewController = AppData.CurrentViewController!
+            currentView.performSegue(withIdentifier: "startGame", sender: nil)
             
         }
         

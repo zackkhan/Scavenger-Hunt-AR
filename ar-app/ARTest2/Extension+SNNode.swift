@@ -12,8 +12,6 @@ import ARKit
 extension SCNNode {
     static func buildFromJson(jsonObject: [String: Any]) -> SCNNode? {
         let modelNum: Int = jsonObject["modelNum"] as! Int
-        let index:Int = jsonObject["index"] as! Int
-        
         if (modelNum >= 0 && modelNum < 4) {
             let model: Model = Model(rawValue: modelNum)!
             let xCoordinate: Float = jsonObject["x"] as! Float

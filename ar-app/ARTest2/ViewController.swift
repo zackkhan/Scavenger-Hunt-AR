@@ -28,10 +28,10 @@ class ViewController: UIViewController
         case .Host:
             print("Host")
         case .Player:
-            print("Player")
+            loadGameMap()
         }
         
-        if AppData.currPlayerType == PlayerType.Host {
+        /*if AppData.currPlayerType == PlayerType.Host {
         for i in 1...1000 {
             let r_x = getRandomValue(lower: -3.0, upper: 5.0), r_y = getRandomValue(lower: -3.0, upper: 5.0),
             r_z = getRandomValue(lower: -3.0, upper: 5.0)
@@ -50,8 +50,14 @@ class ViewController: UIViewController
             
             let data = NSKeyedArchiver.archivedData(withRootObject: messageHash)
             MPCServiceManager.sharedInstance.sendToPlayers(message: data)
-    }
+    }*/
       
+    }
+    func loadGameMap() {
+        for map in AppData.nodeDict {
+            let index:Int = map.key
+            sceneView.scene.rootNode.addChildNode(map.value)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

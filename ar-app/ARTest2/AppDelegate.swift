@@ -12,12 +12,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var instance: MPCServiceManager = MPCServiceManager.sharedInstance
+    //var instance: MPCServiceManager = MPCServiceManager.sharedInstance
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        var _: MPCServiceManager = MPCServiceManager.sharedInstance
+       // var _: MPCServiceManager = MPCServiceManager.sharedInstance
+        
+        DispatchQueue.global().async {
+            Socket.sharedInstance.establishConnection()
+        }
         return true
     }
 

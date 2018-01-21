@@ -16,7 +16,6 @@ class MainPageController: UIViewController {
     
     @IBOutlet weak var top_logo_constraint: NSLayoutConstraint!
     
-    @IBOutlet weak var bottom_logo_constraint: NSLayoutConstraint!
     
     @IBOutlet weak var bottom_create_btn_constraint: NSLayoutConstraint!
     
@@ -43,7 +42,6 @@ class MainPageController: UIViewController {
         super.viewDidLoad()
         AppData.CurrentViewController = self
         top_logo_constraint.constant = self.view.frame.height * 0.2
-        bottom_logo_constraint.constant = self.view.frame.height * 0.3
         bottom_create_btn_constraint.constant = self.view.frame.height * -0.18
         left_create_btn_constraint.constant = self.view.frame.width * 0.2
         right_create_btn_constraint.constant = self.view.frame.width * -0.2

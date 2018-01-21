@@ -20,7 +20,7 @@ class LobbyViewController: UIViewController {
     private var readyPlayers: Array<String> = Array<String>()
     
     @IBAction func readyClick(_ sender: Any) {
-        if AppData.currPlayerType == PlayerType.Host {
+        /*if AppData.currPlayerType == PlayerType.Host {
             AppData.propsDict = createPropsDict()
             sendPropsDict()
         } else {
@@ -28,7 +28,8 @@ class LobbyViewController: UIViewController {
             message[PlayerSendRequests.IsReady.rawValue] = UIDevice.current.name
             let data:Data = NSKeyedArchiver.archivedData(withRootObject: message)
             MPCServiceManager.sharedInstance.sendToHost(message: data)
-        }
+        }*/
+        Socket.sharedInstance.getGameMap()
         
     }
     
@@ -53,6 +54,7 @@ class LobbyViewController: UIViewController {
             var data:Data = NSKeyedArchiver.archivedData(withRootObject: isHostMessage)
             MPCServiceManager.sharedInstance.sendToPlayers(message: data)
         }
+        Socket.sharedInstance.generateGameMap()
     }
 
     @IBAction func onStartGame(_ sender: UIButton) {
