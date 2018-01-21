@@ -51,9 +51,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBc-r8-B3T">
-                                <rect key="frame" x="143" y="55" width="156" height="91"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBc-r8-B3T">
+                                <rect key="frame" x="159.66666666666666" y="360" width="95" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -66,6 +65,10 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="MBc-r8-B3T" firstAttribute="centerX" secondItem="Kmp-77-4vi" secondAttribute="centerX" id="2qn-SS-I8k"/>
+                            <constraint firstItem="MBc-r8-B3T" firstAttribute="centerY" secondItem="Kmp-77-4vi" secondAttribute="centerY" id="HLH-OR-5iO"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Kmp-77-4vi"/>
                     </view>
                 </viewController>
