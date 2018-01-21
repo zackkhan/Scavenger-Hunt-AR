@@ -58,6 +58,11 @@ class ViewController: UIViewController
         if AppData.currPlayerType == PlayerType.Host {
             loadGameMap()
         } else {
+            if (Thread.isMainThread) {
+                print("IM on the MAIN Thread")
+            } else {
+                print("Im on Background")
+            }
                 SwiftSpinner.show("Waiting for Host to Hide Object...")
         }
         addTapGestureToSceneView()
