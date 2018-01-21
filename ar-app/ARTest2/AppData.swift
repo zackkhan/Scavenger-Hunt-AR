@@ -17,5 +17,5 @@ class AppData: NSObject {
     static var hostPeerId:String = ""
     static var propsDict: Array<[String: Any]> = Array<[String: Any]>()
     static var goalObjectDict:[String:Any] = [:]
-    static var goalNode:SCNNode = SCNNode()
+    static var hostObjectNode:SCNNode? = nil
 }

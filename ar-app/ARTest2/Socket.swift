@@ -118,6 +118,7 @@ class Socket: NSObject {
             
             let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: myJson)!
             let counter = AppData.nodeDict.count
+            AppData.hostObjectNode = toAddNode
             AppData.nodeDict[counter] = toAddNode
             SwiftSpinner.hide()
             if (AppData.CurrentViewController is ViewController) {
@@ -132,7 +133,7 @@ class Socket: NSObject {
         socket.on("endGame") { (dataArray, socketAck) -> Void in
             let isGameOver: Bool = dataArray[0] as! Bool
             if (isGameOver) {
-                AppData.CurrentViewController?.performSegue(withIdentifier: "moveToResultPage", sender: nil)
+                AppData.CurrentViewController?.performSegue(withIdentifier: "results", sender: nil)
             }
             
         }
