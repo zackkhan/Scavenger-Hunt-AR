@@ -114,10 +114,9 @@ class Socket: NSObject {
         }
         
         socket.on("hostObject") { (dataArray, socketAck) -> Void in
-            let myJson: [Int: [String: Any]] = dataArray[0] as! [Int: [String: Any]]
-            let index:Int = myJson.keys.first!
+            let myJson: [String: Any] = dataArray[0] as! [String: Any]
             
-            let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: myJson[index]!)!
+            let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: myJson)!
             let counter = AppData.nodeDict.count
             AppData.nodeDict[counter] = toAddNode
             SwiftSpinner.hide()

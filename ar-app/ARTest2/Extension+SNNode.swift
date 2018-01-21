@@ -47,4 +47,31 @@ extension SCNNode {
         
         
     }
+    
+    static func buildFromParams(modelNum:Int, x: Float, y: Float, z: Float) -> SCNNode {
+        var mObj: ModelAR? = nil
+        let model: Model = Model(rawValue: modelNum)!
+
+        switch model {
+        case .Penguin:
+            mObj = ModelAR.PENGUIN
+        case .Ball:
+            mObj = ModelAR.BALL
+        case .Soccer:
+            mObj = ModelAR.SOCCER
+        case .Sunglass:
+            mObj = ModelAR.SUNGLASSES
+        }
+        
+        let currNode:SCNNode = SCNNode()
+        let geoScene = SCNScene(named: mObj!.name!)
+        let nodeArray = geoScene!.rootNode.childNodes
+        for childNode in nodeArray {
+            currNode.addChildNode(childNode as SCNNode)
+        }
+        currNode.scale = SCNVector3(x: mObj!.x!, y: mObj!.y!, z: mObj!.z!)
+        currNode.position = SCNVector3(x, y, z)
+        return currNode
+        
+    }
 }
