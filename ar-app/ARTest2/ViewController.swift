@@ -215,26 +215,6 @@ class ViewController: UIViewController
     
 }
 
-extension ViewController: MPCServiceManagerDelegate {
-    func startedGame(manager: MPCServiceManager) {
-    }
-    
-    func playerGotReady(manager: MPCServiceManager, player: String) {
-        
-    }
-    
-    func connectedDeviceChanged(manager: MPCServiceManager, connectedDevices: [String]) {
-        if (connectedDevices.count > 0) {
-            
-        }
-    }
-    
-    func valueChanged(manager: MPCServiceManager, message: String) {
-        print("Value Changed")
-    }
-    
-    
-}
 
 extension float4x4 {
     var translation: float3 {

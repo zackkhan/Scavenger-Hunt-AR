@@ -17,7 +17,6 @@ class LobbyViewController: UIViewController {
     
     @IBOutlet weak var btnStartGame: UIButton!
     
-    private var managerInstance: MPCServiceManager = MPCServiceManager.sharedInstance
     private var readyPlayers: Array<String> = Array<String>()
     
    
