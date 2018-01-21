@@ -16,7 +16,6 @@ class LobbyViewController: UIViewController {
     @IBAction func readyClick(_ sender: Any) {
         if AppData.currPlayerType == PlayerType.Host {
             AppData.propsDict = createPropsDict()
-            sendPropsDict()
         }
         self.performSegue(withIdentifier: "moveToGame", sender: nil)
     }
@@ -46,11 +45,4 @@ class LobbyViewController: UIViewController {
         return propsDict
     }
     
-    func sendPropsDict() {
-        for prop in AppData.propsDict {
-            let data = NSKeyedArchiver.archivedData(withRootObject: prop)
-            MPCServiceManager.sharedInstance.send(message: data)
-        }
-    }
-
 }
