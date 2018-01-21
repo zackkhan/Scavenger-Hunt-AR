@@ -102,26 +102,21 @@ class Socket: NSObject {
                 let myJson: [String: Any] = myJsonArray[index]
                 let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: myJson)!
                 AppData.nodeDict[index] = toAddNode
-
             }
-            
-           /* for map in myJsonArray{
-                let index:Int = map.keys.first!
-                let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: map[index]!)!
-                
-                AppData.nodeDict[index] = toAddNode
-                
-            }*/
             let currentView: UIViewController = AppData.CurrentViewController!
             currentView.performSegue(withIdentifier: "startGame", sender: nil)
             
         }
         
         socket.on("hostObject") { (dataArray, socketAck) -> Void in
-            let myJson: [Int: [String: Any]] = dataArray[0] as! [Int: [String: Any]]
-            let index:Int = myJson.keys.first!
-            let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: myJson[index]!)!
-            AppData.nodeDict[index] = toAddNode
+            let myJson: [String: Any] = dataArray[0] as! [String: Any]
+            let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: myJson)!
+            let counter = AppData.nodeDict.count
+            AppData.nodeDict[counter] = toAddNode
+        }
+        socket.on("deleteObject") {(dataArray, socketAck) -> Void in
+            let index:Int = dataArray[0] as! Int
+             AppData.nodeDict[index]?.removeFromParentNode()
         }
         
         socket.on("endGame") { (dataArray, socketAck) -> Void in
