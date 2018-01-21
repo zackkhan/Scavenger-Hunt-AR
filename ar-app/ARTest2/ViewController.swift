@@ -23,6 +23,35 @@ class ViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
+        
+        switch AppData.currPlayerType {
+        case .Host:
+            print("Host")
+        case .Player:
+            print("Player")
+        }
+        
+        if AppData.currPlayerType == PlayerType.Host {
+        for i in 1...1000 {
+            let r_x = getRandomValue(lower: -3.0, upper: 5.0), r_y = getRandomValue(lower: -3.0, upper: 5.0),
+            r_z = getRandomValue(lower: -3.0, upper: 5.0)
+            let random_color = Int(arc4random_uniform(4))
+            addBox(x: r_x, y: r_y, z: r_z, color: random_color, index: i)
+        }
+        // Host sends signal now
+            var dataDict: [PlayerMessages:[Int: SCNNode]] = [:]
+            dataDict[PlayerMessages.InitialGameHash] = AppData.nodeDict
+            //let data = NSKeyedArchiver.archivedData(withRootObject: dataDict)
+            var messageHash: [String: Any] = [:]
+            messageHash["model"] = 1
+            messageHash["x"] = Float(2)
+            messageHash["y"] = Float(3)
+            messageHash["z"] = Float(4)
+            
+            let data = NSKeyedArchiver.archivedData(withRootObject: messageHash)
+            MPCServiceManager.sharedInstance.sendToPlayers(message: data)
+    }
+      
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -111,7 +140,7 @@ class ViewController: UIViewController
     func sendPropsDict() {
         for prop in AppData.propsDict {
             let data = NSKeyedArchiver.archivedData(withRootObject: prop)
-            MPCServiceManager.sharedInstance.send(message: data)
+            MPCServiceManager.sharedInstance.sendToPlayers(message: data)
         }
     }
     
@@ -123,7 +152,7 @@ class ViewController: UIViewController
         messageHash["z"] = Float(4)
         
         let data = NSKeyedArchiver.archivedData(withRootObject: messageHash)
-        MPCServiceManager.sharedInstance.send(message: data)
+        MPCServiceManager.sharedInstance.sendToPlayers(message: data)
     }
     
     func addTapGestureToSceneView() {
@@ -142,13 +171,8 @@ class ViewController: UIViewController
                 let hitTestResultsWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
                 if let hitTestResultWithFeaturePoints = hitTestResultsWithFeaturePoints.first {
                     let translation = hitTestResultWithFeaturePoints.worldTransform.translation
-                    AppData.goalObjectDict["model"] = Int(arc4random_uniform(4))
-                    AppData.goalObjectDict["x"] = translation.x
-                    AppData.goalObjectDict["y"] = translation.y
-                    AppData.goalObjectDict["z"] = translation.z
                     
-                    AppData.propsDict.append(AppData.goalObjectDict)
-                    sendPropsDict()
+                    Socket.sharedInstance.addTargetObject(modelNum: Int(arc4random_uniform(4)), x: translation.x, y: translation.y, z: translation.z)
                 }
         }
         return
@@ -156,10 +180,7 @@ class ViewController: UIViewController
         for (key, value) in AppData.nodeDict {
             if (value == node) {
                 // send the key to delete
-                var deleteDict:[PlayerMessages: Int] = [:]
-                deleteDict[PlayerMessages.DeleteIndex] = key
-                let data = NSKeyedArchiver.archivedData(withRootObject: deleteDict)
-                MPCServiceManager.sharedInstance.send(message: data)
+                Socket.sharedInstance.sendDeleteEmit(index: key)
             }
         }
         node.removeFromParentNode()
@@ -177,6 +198,13 @@ class ViewController: UIViewController
 }
 
 extension ViewController: MPCServiceManagerDelegate {
+    func startedGame(manager: MPCServiceManager) {
+    }
+    
+    func playerGotReady(manager: MPCServiceManager, player: String) {
+        
+    }
+    
     func connectedDeviceChanged(manager: MPCServiceManager, connectedDevices: [String]) {
         if (connectedDevices.count > 0) {
             

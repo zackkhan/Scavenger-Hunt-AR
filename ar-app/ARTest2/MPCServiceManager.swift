@@ -13,7 +13,12 @@ import ARKit
 protocol MPCServiceManagerDelegate {
     func connectedDeviceChanged(manager: MPCServiceManager, connectedDevices: [String])
     func valueChanged(manager: MPCServiceManager, message: String)
+    func playerGotReady(manager: MPCServiceManager, player: String)
+    func startedGame(manager: MPCServiceManager)
+    
 }
+
+
 
 class MPCServiceManager: NSObject {
     
@@ -55,10 +60,18 @@ class MPCServiceManager: NSObject {
         self.serviceBrowser.startBrowsingForPeers()
     }
    
-    func send(message:Data) {
+    func sendToHost(message:Data) {
+            do {
+                try self.session.send(message, toPeers: getHost(), with: .reliable)
+            } catch let error {
+                print(error)
+            }
+    }
+    
+    func sendToPlayers(message:Data) {
         if session.connectedPeers.count > 0 {
             do {
-                try self.session.send(message, toPeers: session.connectedPeers, with: .reliable)
+                try self.session.send(message, toPeers: getConnectedPlayers(allConnected: session.connectedPeers), with: .reliable)
             } catch let error {
                 print(error)
             }
@@ -144,9 +157,14 @@ extension MPCServiceManager : MCSessionDelegate {
                 let currDict = val[index]
                     (AppData.CurrentViewController as! ViewController?)?.addModel(x:currDict["x"] as! Float, y:currDict["y"] as! Float, z:currDict["z"] as! Float, modelNum:currDict["model"] as! Int, Index: index as! Int)
                 }
-            
+            case .HostIdentifier:
+                let value: String = resultsHash![resultsHash!.keys.first!]! as! String
+                AppData.hostPeerId = value
+                
             case .Winner:
                 print("Winner")
+            case .StartGame:
+                self.delegate?.startedGame(manager: MPCServiceManager.sharedInstance)
             }
         }
     }
@@ -154,13 +172,17 @@ extension MPCServiceManager : MCSessionDelegate {
     func onHostReceivedData(session: MCSession, didReceieve data: Data, fromPeer peerID: MCPeerID) {
         let resultsHash: [String: Any]? = NSKeyedUnarchiver.unarchiveObject(with: data) as! [String : Any]?
         if (resultsHash != nil && resultsHash?.keys.first != nil) {
-            let messageType:HostMessages = HostMessages(rawValue: (resultsHash?.keys.first)!)!
+            let messageType:PlayerSendRequests = PlayerSendRequests(rawValue: (resultsHash?.keys.first)!)!
             switch messageType {
-            case .DeleteIndex :
-                print("Delete Index")
+            case .IsReady :
+                let value: String = resultsHash![resultsHash!.keys.first!]! as! String
+                self.delegate?.playerGotReady(manager: MPCServiceManager.sharedInstance, player: value)
+            case .IsHost:
+                print("Well Fuck it")
             }
         }
     }
+    
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
         print("did recieve stream")

@@ -14,6 +14,7 @@ class AppData: NSObject {
     static var CurrentViewController:UIViewController? = nil
     static var currPlayerType:PlayerType = .Player
     static var nodeDict:[Int: SCNNode] = [:]
+    static var hostPeerId:String = ""
     static var propsDict: Array<[String: Any]> = Array<[String: Any]>()
     static var goalObjectDict:[String:Any] = [:]
     static var goalNode:SCNNode = SCNNode()

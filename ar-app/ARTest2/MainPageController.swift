@@ -41,6 +41,7 @@ class MainPageController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppData.CurrentViewController = self
         top_logo_constraint.constant = self.view.frame.height * 0.2
         bottom_logo_constraint.constant = self.view.frame.height * 0.3
         bottom_create_btn_constraint.constant = self.view.frame.height * -0.18
