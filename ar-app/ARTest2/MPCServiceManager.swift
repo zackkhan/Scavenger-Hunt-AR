@@ -14,6 +14,7 @@ protocol MPCServiceManagerDelegate {
     func connectedDeviceChanged(manager: MPCServiceManager, connectedDevices: [String])
     func valueChanged(manager: MPCServiceManager, message: String)
     func playerGotReady(manager: MPCServiceManager, player: String)
+    func startedGame(manager: MPCServiceManager)
     
 }
 
@@ -60,13 +61,11 @@ class MPCServiceManager: NSObject {
     }
    
     func sendToHost(message:Data) {
-        if session.connectedPeers.count > 0 {
             do {
                 try self.session.send(message, toPeers: getHost(), with: .reliable)
             } catch let error {
                 print(error)
             }
-        }
     }
     
     func sendToPlayers(message:Data) {
@@ -162,6 +161,8 @@ extension MPCServiceManager : MCSessionDelegate {
                 AppData.hostPeerId = value
             case .Winner:
                 print("Winner")
+            case .StartGame:
+                self.delegate?.startedGame(manager: MPCServiceManager.sharedInstance)
             }
         }
     }
@@ -169,13 +170,18 @@ extension MPCServiceManager : MCSessionDelegate {
     func onHostReceivedData(session: MCSession, didReceieve data: Data, fromPeer peerID: MCPeerID) {
         let resultsHash: [String: Any]? = NSKeyedUnarchiver.unarchiveObject(with: data) as! [String : Any]?
         if (resultsHash != nil && resultsHash?.keys.first != nil) {
-            let messageType:HostMessages = HostMessages(rawValue: (resultsHash?.keys.first)!)!
+            let messageType:PlayerSendRequests = PlayerSendRequests(rawValue: (resultsHash?.keys.first)!)!
             switch messageType {
-            case .DeleteIndex :
-                print("Delete Index")
+            case .IsReady :
+                let value: String = resultsHash![resultsHash!.keys.first!]! as! String
+                self.delegate?.playerGotReady(manager: MPCServiceManager.sharedInstance, player: value)
+            case .IsHost:
+                print("Well Fuck it")
             }
         }
     }
+    
+    func
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
         print("did recieve stream")

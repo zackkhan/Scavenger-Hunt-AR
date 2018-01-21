@@ -19,6 +19,18 @@ class LobbyViewController: UIViewController {
     private var managerInstance: MPCServiceManager = MPCServiceManager.sharedInstance
     private var readyPlayers: Array<String> = Array<String>()
     
+    @IBAction func readyClick(_ sender: Any) {
+        if AppData.currPlayerType == PlayerType.Host {
+            AppData.propsDict = createPropsDict()
+            sendPropsDict()
+        } else {
+            var message: [String: String] = [:]
+            message[PlayerSendRequests.IsReady.rawValue] = UIDevice.current.name
+            let data:Data = NSKeyedArchiver.archivedData(withRootObject: message)
+            MPCServiceManager.sharedInstance.sendToHost(message: data)
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +47,7 @@ class LobbyViewController: UIViewController {
             readyButton.isHidden = true
             
             var isHostMessage: [String: String] = [:]
-            isHostMessage[HostSendRequests.IsHost.rawValue] = UIDevice.current.name
+            isHostMessage[PlayerMessages.HostIdentifier.rawValue] = UIDevice.current.name
             
             var data:Data = NSKeyedArchiver.archivedData(withRootObject: isHostMessage)
             MPCServiceManager.sharedInstance.sendToPlayers(message: data)
@@ -45,7 +57,15 @@ class LobbyViewController: UIViewController {
     }
 
     @IBAction func onStartGame(_ sender: UIButton) {
-        
+        if (readyPlayers.count == MPCServiceManager.sharedInstance.session.connectedPeers.count) {
+            print("We have started Game")
+            
+            var startGameMessage: [String: Bool] = [:]
+            startGameMessage[PlayerMessages.StartGame.rawValue] = true
+            let data: Data = NSKeyedArchiver.archivedData(withRootObject: startGameMessage)
+            MPCServiceManager.sharedInstance.sendToPlayers(message: data)
+            self.performSegue(withIdentifier: "startGame", sender: nil)
+        }
         
     }
     
@@ -56,11 +76,34 @@ class LobbyViewController: UIViewController {
         let data:Data = NSKeyedArchiver.archivedData(withRootObject: message)
         MPCServiceManager.sharedInstance.sendToHost(message: data)
     }
+    func createPropsDict() -> Array<[String: Any]> {
+        var propsDict: Array<[String: Any]> = []
+        for i in 0...100 {
+            var props: [String: Any] = [:]
+            props["model"] = Int(arc4random_uniform(4))
+            props["x"] = getRandomValue(lower: -2.0, upper: 2.0)
+            props["y"] = getRandomValue(lower: -2.0, upper: 2.0)
+            props["z"] = getRandomValue(lower: -1.0, upper: 2.0)
+            propsDict.append(props)
+        }
+        return propsDict
+    }
+    
+    func sendPropsDict() {
+        for prop in AppData.propsDict {
+            let data = NSKeyedArchiver.archivedData(withRootObject: prop)
+            MPCServiceManager.sharedInstance.sendToPlayers(message: data)
+        }
+    }
     
 
 }
 
 extension LobbyViewController: MPCServiceManagerDelegate {
+    func startedGame(manager: MPCServiceManager) {
+        self.performSegue(withIdentifier: "startGame", sender: nil)
+    }
+    
     func connectedDeviceChanged(manager: MPCServiceManager, connectedDevices: [String]) {
         print("Connected Device Changed in Lobby")
     }
@@ -71,16 +114,7 @@ extension LobbyViewController: MPCServiceManagerDelegate {
     
     func playerGotReady(manager: MPCServiceManager, player: String) {
         self.readyPlayers.append(player)
-        if (readyPlayers.count == MPCServiceManager.sharedInstance.session.connectedPeers.count) {
-            print("We have started Game")
-            
-            var startGameMessage: [String: Bool] = [:]
-            startGameMessage[HostSendRequests.StartGame.rawValue] = true
-            let data: Data = NSKeyedArchiver.archivedData(withRootObject: startGameMessage)
-            MPCServiceManager.sharedInstance.sendToPlayers(message: data)
-            self.performSegue(withIdentifier: "startGame", sender: nil)
-
-        }
+        self.countLabel.text = "\(readyPlayers.count) Players Are Ready"
     }
     
     

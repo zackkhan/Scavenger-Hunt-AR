@@ -50,11 +50,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hbF-WO-IZT">
-                                <rect key="frame" x="160" y="355.33333333333331" width="94" height="47"/>
+                                <rect key="frame" x="168.33333333333334" y="355.33333333333331" width="79" height="47"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                <state key="normal" title="Ready?"/>
+                                <state key="normal" title="Ready"/>
                                 <connections>
-                                    <action selector="onReady:" destination="dtf-wM-TcL" eventType="touchUpInside" id="hsF-QG-Y7s"/>
+                                    <action selector="readyClick:" destination="dtf-wM-TcL" eventType="touchUpInside" id="JMe-tz-JVc"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OG-vK-BHZ">
@@ -137,7 +137,6 @@
                     <connections>
                         <outlet property="btnCreateGame" destination="A3e-1H-VnI" id="KxW-7w-t4R"/>
                         <outlet property="btnJoinGame" destination="j42-7e-QaR" id="RL6-Nn-HGc"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="moveToGame" id="qpC-hU-aUB"/>
                         <segue destination="dtf-wM-TcL" kind="show" identifier="moveToLobby" id="P5N-XF-yuK"/>
                     </connections>
                 </viewController>
@@ -146,7 +145,4 @@
             <point key="canvasLocation" x="88" y="131"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="Z8l-QB-8Wi"/>
-    </inferredMetricsTieBreakers>
 </document>

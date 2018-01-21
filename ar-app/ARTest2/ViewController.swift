@@ -12,7 +12,12 @@ import ARKit
 class ViewController: UIViewController
 {    
     @IBOutlet weak var sceneView: ARSCNView!
-    private var managerInstance:MPCServiceManager? = nil
+    
+    func createGameMap() {
+        for prop in AppData.propsDict {
+            addModel(x: prop["x"] as! Float, y: prop["y"] as! Float, z: prop["z"] as! Float, modelNum: prop["model"] as! Int)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +52,7 @@ class ViewController: UIViewController
     }
       
     }
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let configuration = ARWorldTrackingConfiguration()
@@ -61,15 +65,17 @@ class ViewController: UIViewController
     }
     
     private func initialize() {
-        managerInstance = MPCServiceManager.sharedInstance
+        if AppData.currPlayerType == PlayerType.Host {
+            createGameMap()
+        }
         addTapGestureToSceneView()
         AppData.CurrentViewController = self
     }
     
-    func addModel(x: Float = 0, y: Float = 0, z: Float = -0.2, index:Int) {
+    func addModel(x: Float = 0, y: Float = 0, z: Float = -0.2, modelNum:Int) {
         let node = SCNNode()
         var mObj:ModelAR? = nil
-        switch (index) {
+        switch (modelNum) {
             case 0:
                 mObj = ModelAR.PENGUIN
                 break;
@@ -180,6 +186,9 @@ class ViewController: UIViewController
 }
 
 extension ViewController: MPCServiceManagerDelegate {
+    func startedGame(manager: MPCServiceManager) {
+    }
+    
     func playerGotReady(manager: MPCServiceManager, player: String) {
         
     }
