@@ -76,6 +76,25 @@ extension SCNNode {
         
     }
     
+    static func buildFromJson2(jsonObject: [String: Any]) -> SCNNode? {
+        let modelNum: Int = jsonObject["modelNum"] as! Int
+        // let model: Model = Model(rawValue: modelNum)!
+        let xCoordinate: Float = jsonObject["x"] as! Float
+        let yCoordinate: Float = jsonObject["y"] as! Float
+        let zCoordinate: Float = jsonObject["z"] as! Float
+        var mObj: ModelAR = ModelAR.PENGUIN
+        
+        let currNode:SCNNode = SCNNode()
+        let geoScene = SCNScene(named: mObj.name!)
+        let nodeArray = geoScene!.rootNode.childNodes
+        for childNode in nodeArray {
+            currNode.addChildNode(childNode as SCNNode)
+        }
+        currNode.scale = SCNVector3(x: mObj.x!, y: mObj.y!, z: mObj.z!)
+        currNode.position = SCNVector3(xCoordinate, yCoordinate, zCoordinate)
+        return currNode
+    }
+    
     static func buildFromParams(modelNum:Int, x: Float, y: Float, z: Float) -> SCNNode {
         var mObj: ModelAR? = nil
         let model: Model = Model(rawValue: modelNum)!

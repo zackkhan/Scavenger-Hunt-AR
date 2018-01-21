@@ -117,7 +117,7 @@ class Socket: NSObject {
         socket.on("hostObject") { (dataArray, socketAck) -> Void in
             let myJson: [String: Any] = dataArray[0] as! [String: Any]
             
-            let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: myJson)!
+            let toAddNode:SCNNode = SCNNode.buildFromJson2(jsonObject: myJson)!
             let counter = AppData.nodeDict.count
             AppData.hostObjectNode = toAddNode
             AppData.nodeDict[counter] = toAddNode
