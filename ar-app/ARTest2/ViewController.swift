@@ -13,12 +13,6 @@ class ViewController: UIViewController
 {    
     @IBOutlet weak var sceneView: ARSCNView!
     
-    func getRandomValue (lower:Float, upper:Float) -> Float{
-        let arc4randoMax:Double = 0x100000000
-        let ab = (Double(arc4random()) / arc4randoMax)
-        return Float(ab) * (upper - lower) + lower
-    }
-    
     func createGameMap() {
         for prop in AppData.propsDict {
             addModel(x: prop["x"] as! Float, y: prop["y"] as! Float, z: prop["z"] as! Float, modelNum: prop["model"] as! Int)
@@ -27,12 +21,9 @@ class ViewController: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addTapGestureToSceneView()
-        if AppData.currPlayerType == PlayerType.Host {
-            createGameMap()
-        }
+        initialize()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let configuration = ARWorldTrackingConfiguration()
@@ -44,7 +35,15 @@ class ViewController: UIViewController
         sceneView.session.pause()
     }
     
-    func addModel(x: Float = 0, y: Float = 0, z: Float = -0.2, modelNum: Int) {
+    private func initialize() {
+        if AppData.currPlayerType == PlayerType.Host {
+            createGameMap()
+        }
+        addTapGestureToSceneView()
+        AppData.CurrentViewController = self
+    }
+    
+    func addModel(x: Float = 0, y: Float = 0, z: Float = -0.2, modelNum:Int) {
         let node = SCNNode()
         var mObj:ModelAR? = nil
         switch (modelNum) {
@@ -156,10 +155,26 @@ class ViewController: UIViewController
     
     
 }
+
+extension ViewController: MPCServiceManagerDelegate {
+    func connectedDeviceChanged(manager: MPCServiceManager, connectedDevices: [String]) {
+        if (connectedDevices.count > 0) {
+            
+        }
+    }
+    
+    func valueChanged(manager: MPCServiceManager, message: String) {
+        print("Value Changed")
+    }
+    
+    
+}
+
 extension float4x4 {
     var translation: float3 {
         let translation = self.columns.3
         return float3(translation.x, translation.y, translation.z)
     }
 }
+
 
