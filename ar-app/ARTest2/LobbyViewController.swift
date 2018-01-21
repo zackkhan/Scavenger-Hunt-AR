@@ -12,11 +12,11 @@ import SwiftSpinner
 
 class LobbyViewController: UIViewController {
 
-    @IBOutlet weak var readyButton: UIButton!
     @IBOutlet weak var countLabel: UILabel!
     
-    @IBOutlet weak var btnStartGame: UIButton!
+    @IBOutlet weak var btnStart: UIButton!
     
+    @IBOutlet weak var btnView: UIView!
     private var readyPlayers: Array<String> = Array<String>()
     
    
@@ -28,26 +28,26 @@ class LobbyViewController: UIViewController {
     
     private func initialize() {
         AppData.CurrentViewController = self
+        btnView.layer.cornerRadius = btnView.frame.width * 0.05
         if (AppData.currPlayerType == .Player) {
-            btnStartGame.isHidden = true
-            readyButton.isHidden = false
+            btnStart.setTitle("Ready To Play?", for: .normal)
         } else {
-            btnStartGame.isHidden = false
-            readyButton.isHidden = true
+           btnStart.setTitle("Start Game", for: .normal)
         }
+        
         Socket.sharedInstance.generateGameMap()
     }
 
+    @IBOutlet weak var btnOnStart: UIButton!
     
-    @IBAction func readyClick(_ sender: Any) {
-        Socket.sharedInstance.sendReadyEmit()
-        Socket.sharedInstance.getGameMap()
-    }
-    
-
-    @IBAction func onStartGame(_ sender: UIButton) {
-        Socket.sharedInstance.generateGameMap()
-        Socket.sharedInstance.getGameMap()
+    @IBAction func btnOnStart(_ sender: UIButton) {
+        if (AppData.currPlayerType == .Host) {
+            Socket.sharedInstance.generateGameMap()
+            Socket.sharedInstance.getGameMap()
+        } else {
+            Socket.sharedInstance.sendReadyEmit()
+            Socket.sharedInstance.getGameMap()
+        }
     }
     
     /*

@@ -38,6 +38,7 @@
 		5983D02E2014B95B002E289E /* Montserrat-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5983D0162014B648002E289E /* Montserrat-MediumItalic.otf */; };
 		5983D02F2014B95B002E289E /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5983D0152014B647002E289E /* Montserrat-Regular.otf */; };
 		5983D0302014B95B002E289E /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5983D0142014B647002E289E /* Montserrat-SemiBold.otf */; };
+		5983D0322014C3FF002E289E /* ResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5983D0312014C3FF002E289E /* ResultController.swift */; };
 		59AE352D2014488E00B2EAE7 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AE352C2014488E00B2EAE7 /* Socket.swift */; };
 		59AE352F20144A6000B2EAE7 /* Extension+SNNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AE352E20144A6000B2EAE7 /* Extension+SNNode.swift */; };
 		CDD398F07B10A53AC343611F /* Pods_ARTest2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D575375E31B007C89FC58356 /* Pods_ARTest2.framework */; };
@@ -77,6 +78,7 @@
 		5983D01B2014B64A002E289E /* Montserrat-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBold.otf"; sourceTree = "<group>"; };
 		5983D01C2014B64B002E289E /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		5983D01D2014B64B002E289E /* Montserrat-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-LightItalic.otf"; sourceTree = "<group>"; };
+		5983D0312014C3FF002E289E /* ResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultController.swift; sourceTree = "<group>"; };
 		59AE352C2014488E00B2EAE7 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		59AE352E20144A6000B2EAE7 /* Extension+SNNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+SNNode.swift"; sourceTree = "<group>"; };
 		654E359EC707A2EFBD9460D6 /* Pods-ARTest2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARTest2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ARTest2/Pods-ARTest2.debug.xcconfig"; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				14BB2EC72013336400D8EBF5 /* LaunchScreen.storyboard */,
 				14BB2ECA2013336400D8EBF5 /* Info.plist */,
 				59656A0720135D76005294F0 /* AppData.swift */,
+				5983D0312014C3FF002E289E /* ResultController.swift */,
 				59656A0B20135E01005294F0 /* Extension+UIViewController.swift */,
 				59656A0D2013618A005294F0 /* AppDefs.swift */,
 				30C561AA20136A7100BF7B2C /* ModelAR.swift */,
@@ -340,6 +343,7 @@
 				59656A0C20135E02005294F0 /* Extension+UIViewController.swift in Sources */,
 				59AE352D2014488E00B2EAE7 /* Socket.swift in Sources */,
 				30C561AB20136A7100BF7B2C /* ModelAR.swift in Sources */,
+				5983D0322014C3FF002E289E /* ResultController.swift in Sources */,
 				30C561B32013FB8200BF7B2C /* LobbyViewController.swift in Sources */,
 				59656A0820135D76005294F0 /* AppData.swift in Sources */,
 				59656A0E2013618A005294F0 /* AppDefs.swift in Sources */,

@@ -121,6 +121,10 @@ class ViewController: UIViewController
         sceneView.scene.rootNode.addChildNode(node)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let resultVC: Resul
+    }
+    
     
 }
 
