@@ -11,13 +11,39 @@ import ARKit
 
 extension SCNNode {
     static func buildFromJson(jsonObject: [String: Any]) -> SCNNode? {
+        
         let modelNum: Int = jsonObject["modelNum"] as! Int
-        if (modelNum >= 0 && modelNum < 4) {
-            let model: Model = Model(rawValue: modelNum)!
+            // let model: Model = Model(rawValue: modelNum)!
             let xCoordinate: Float = jsonObject["x"] as! Float
             let yCoordinate: Float = jsonObject["y"] as! Float
             let zCoordinate: Float = jsonObject["z"] as! Float
             
+            let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+            let boxNode = SCNNode()
+            boxNode.geometry = box
+            boxNode.position = SCNVector3(xCoordinate, yCoordinate, zCoordinate)
+            
+            let material = SCNMaterial()
+            switch(modelNum) {
+            case 0:
+                material.diffuse.contents = UIColor.yellow
+                break
+            case 1:
+                material.diffuse.contents = UIColor.red
+                break
+            case 2:
+                material.diffuse.contents = UIColor.blue
+                break
+            case 3:
+                material.diffuse.contents = UIColor.green
+                break
+            default:
+                material.diffuse.contents = UIColor.green
+            }
+            box.materials = [material]
+                
+            return boxNode
+            /*
             var mObj: ModelAR? = nil
             
             
@@ -44,6 +70,8 @@ extension SCNNode {
         } else {
             return nil
         }
+         */
+        
         
         
     }
