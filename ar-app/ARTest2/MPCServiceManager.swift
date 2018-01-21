@@ -13,7 +13,11 @@ import ARKit
 protocol MPCServiceManagerDelegate {
     func connectedDeviceChanged(manager: MPCServiceManager, connectedDevices: [String])
     func valueChanged(manager: MPCServiceManager, message: String)
+    func playerGotReady(manager: MPCServiceManager, player: String)
+    
 }
+
+
 
 class MPCServiceManager: NSObject {
     
@@ -55,10 +59,20 @@ class MPCServiceManager: NSObject {
         self.serviceBrowser.startBrowsingForPeers()
     }
    
-    func send(message:Data) {
+    func sendToHost(message:Data) {
         if session.connectedPeers.count > 0 {
             do {
-                try self.session.send(message, toPeers: session.connectedPeers, with: .reliable)
+                try self.session.send(message, toPeers: getHost(), with: .reliable)
+            } catch let error {
+                print(error)
+            }
+        }
+    }
+    
+    func sendToPlayers(message:Data) {
+        if session.connectedPeers.count > 0 {
+            do {
+                try self.session.send(message, toPeers: getConnectedPlayers(allConnected: session.connectedPeers), with: .reliable)
             } catch let error {
                 print(error)
             }
@@ -143,7 +157,9 @@ extension MPCServiceManager : MCSessionDelegate {
                 for key in AppData.nodeDict.keys {
                     AppData.CurrentViewController?.addNode(node: AppData.nodeDict[key]!)
                 }
-                
+            case .HostIdentifier:
+                let value: String = resultsHash![resultsHash!.keys.first!]! as! String
+                AppData.hostPeerId = value
             case .Winner:
                 print("Winner")
             }

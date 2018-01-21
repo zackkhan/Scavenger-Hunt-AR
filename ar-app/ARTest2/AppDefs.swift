@@ -13,11 +13,19 @@ enum PlayerMessages: String {
     case InitialGameHash = "InitialGameHash"
     case DeleteIndex = "DeleteIndex"
     case Winner = "Winner"
+    case HostIdentifier = "HostIdentifier"
 }
 
 enum HostMessages: String {
     case DeleteIndex = "DeleteIndex"
-    
+}
+
+enum PlayerSendRequests: String {
+    case IsReady = "IsReady"
+}
+enum HostSendRequests: String {
+    case IsHost = "IsHost"
+    case StartGame = "StartGame"
 }
 
 enum PlayerType: String {

@@ -43,7 +43,7 @@ class ViewController: UIViewController
             messageHash["z"] = Float(4)
             
             let data = NSKeyedArchiver.archivedData(withRootObject: messageHash)
-            MPCServiceManager.sharedInstance.send(message: data)
+            MPCServiceManager.sharedInstance.sendToPlayers(message: data)
     }
       
     }
@@ -137,7 +137,7 @@ class ViewController: UIViewController
         messageHash["z"] = Float(4)
         
         let data = NSKeyedArchiver.archivedData(withRootObject: messageHash)
-        MPCServiceManager.sharedInstance.send(message: data)
+        MPCServiceManager.sharedInstance.sendToPlayers(message: data)
     }
     
     func addTapGestureToSceneView() {
@@ -162,7 +162,7 @@ class ViewController: UIViewController
                 var deleteDict:[PlayerMessages: Int] = [:]
                 deleteDict[PlayerMessages.DeleteIndex] = key
                 let data = NSKeyedArchiver.archivedData(withRootObject: deleteDict)
-                MPCServiceManager.sharedInstance.send(message: data)
+                MPCServiceManager.sharedInstance.sendToHost(message: data)
             }
         }
         node.removeFromParentNode()
@@ -180,6 +180,10 @@ class ViewController: UIViewController
 }
 
 extension ViewController: MPCServiceManagerDelegate {
+    func playerGotReady(manager: MPCServiceManager, player: String) {
+        
+    }
+    
     func connectedDeviceChanged(manager: MPCServiceManager, connectedDevices: [String]) {
         if (connectedDevices.count > 0) {
             
