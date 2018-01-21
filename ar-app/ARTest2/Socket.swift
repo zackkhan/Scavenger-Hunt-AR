@@ -21,13 +21,16 @@ class Socket: NSObject {
     }
     
     func establishConnection() {
+        
         let socket = manager.defaultSocket
         socket.on(clientEvent: .connect) {data, ack in
             print("Log: socket connected")
         }
+        
         socket.connect()
         CFRunLoopRun()
         listenForOtherMessages()
+        
     }
     
     func closeConnection() {
@@ -105,13 +108,6 @@ class Socket: NSObject {
 
             }
             
-           /* for map in myJsonArray{
-                let index:Int = map.keys.first!
-                let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: map[index]!)!
-                
-                AppData.nodeDict[index] = toAddNode
-                
-            }*/
             let currentView: UIViewController = AppData.CurrentViewController!
             currentView.performSegue(withIdentifier: "startGame", sender: nil)
             
@@ -131,43 +127,6 @@ class Socket: NSObject {
             }
             
         }
-        
-        /*socket.on("questions") { (dataArray, socketAck) -> Void in
-            let myJson:[String: AnyObject] = dataArray[0] as! [String: AnyObject]
-            let questionsJson:[[String: String]] = myJson["Questions"] as! [[String: String]]
-            for i in 0...(questionsJson.count - 1) {
-                let currQuestionSet:QuestionSet = QuestionSet.buildFromJson(json: questionsJson[i])
-                AppData.questions.append(currQuestionSet)
-            }
-            
-        }
-        
-        socket.on("ui_state") { (dataArray, socketAck) -> Void in
-            
-            let myJson:[String: AnyObject] = dataArray[0] as! [String: AnyObject]
-            let myState: State = State(rawValue: myJson.keys.first!)!
-            
-            switch(myState) {
-            case .HOME:
-                print("Log: We are at Home")
-            case .COUNTDOWN:
-                print("Log: We are counting down")
-            case .HOST:
-                print("Log: We are viewing the host")
-            case .QUESTION_OPEN:
-                print("Log: We are opening the question")
-                AppData.CurrentViewController?.performSegue(withIdentifier: "moveToGame", sender: nil)
-            case .REWARD:
-                print("Log: We are getting our reward")
-            }
-        }
-        
-        socket.on("time") { (dataArray, socketAck) -> Void in
-            let timeJson: [String: AnyObject] = dataArray[0] as! [String: AnyObject]
-            let time: Int64 = timeJson["time"] as! Int64
-            print("Log: Time Left: \(time) seconds")
-            
-        }*/
         
     }
     

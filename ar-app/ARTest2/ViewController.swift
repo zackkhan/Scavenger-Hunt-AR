@@ -12,6 +12,7 @@ import ARKit
 class ViewController: UIViewController
 {    
     @IBOutlet weak var sceneView: ARSCNView!
+    private var didDropTarget: Bool = false
     
     func createGameMap() {
         for index in 0 ... AppData.propsDict.count {
@@ -24,12 +25,12 @@ class ViewController: UIViewController
         super.viewDidLoad()
         initialize()
         
-        switch AppData.currPlayerType {
+       /* switch AppData.currPlayerType {
         case .Host:
             print("Host")
         case .Player:
             loadGameMap()
-        }
+        }*/
         
         /*if AppData.currPlayerType == PlayerType.Host {
         for i in 1...1000 {
@@ -53,6 +54,17 @@ class ViewController: UIViewController
     }*/
       
     }
+    
+    private func initialize() {
+        if AppData.currPlayerType == PlayerType.Host {
+            loadGameMap()
+        } else {
+            
+        }
+        addTapGestureToSceneView()
+        AppData.CurrentViewController = self
+    }
+    
     func loadGameMap() {
         for map in AppData.nodeDict {
             let index:Int = map.key
@@ -71,15 +83,9 @@ class ViewController: UIViewController
         sceneView.session.pause()
     }
     
-    private func initialize() {
-        if AppData.currPlayerType == PlayerType.Host {
-            createGameMap()
-        }
-        addTapGestureToSceneView()
-        AppData.CurrentViewController = self
-    }
     
-    func addModel(x: Float = 0, y: Float = 0, z: Float = -0.2, modelNum:Int, Index: Int) {
+    
+    /*func addModel(x: Float = 0, y: Float = 0, z: Float = -0.2, modelNum:Int, Index: Int) {
         let node = SCNNode()
         var mObj:ModelAR? = nil
         switch (modelNum) {
@@ -159,7 +165,7 @@ class ViewController: UIViewController
         
         let data = NSKeyedArchiver.archivedData(withRootObject: messageHash)
         MPCServiceManager.sharedInstance.sendToPlayers(message: data)
-    }
+    }*/
     
     func addTapGestureToSceneView() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.didTap(withGestureRecognizer:)))
@@ -168,28 +174,35 @@ class ViewController: UIViewController
     
     @objc func didTap(withGestureRecognizer recognizer: UIGestureRecognizer) {
         
-        let tapLocation = recognizer.location(in: sceneView)
-        let hitTestResults = sceneView.hitTest(tapLocation)
-        guard let node = hitTestResults.first?.node else {
-            // check if host (only host can add block)
-            if (AppData.currPlayerType == PlayerType.Host) {
+        if (AppData.currPlayerType == .Host && !didDropTarget) {
+            let tapLocation = recognizer.location(in: sceneView)
+            let hitTestResults = sceneView.hitTest(tapLocation)
             
-                let hitTestResultsWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
-                if let hitTestResultWithFeaturePoints = hitTestResultsWithFeaturePoints.first {
-                    let translation = hitTestResultWithFeaturePoints.worldTransform.translation
-                    
-                    Socket.sharedInstance.addTargetObject(modelNum: Int(arc4random_uniform(4)), x: translation.x, y: translation.y, z: translation.z)
-                }
-        }
-        return
-    }
-        for (key, value) in AppData.nodeDict {
-            if (value == node) {
-                // send the key to delete
-                Socket.sharedInstance.sendDeleteEmit(index: key)
+            guard let node = hitTestResults.first?.node else {
+                    let hitTestResultsWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
+                    if let hitTestResultWithFeaturePoints = hitTestResultsWithFeaturePoints.first {
+                        let translation = hitTestResultWithFeaturePoints.worldTransform.translation
+                        Socket.sharedInstance.addTargetObject(modelNum: Int(arc4random_uniform(4)), x: translation.x, y: translation.y, z: translation.z)
+                    }
+                return
             }
-        }
-        node.removeFromParentNode()
+        } else if (AppData.currPlayerType == .Player) {
+            let tapLocation = recognizer.location(in: sceneView)
+            let hitTestResults = sceneView.hitTest(tapLocation)
+            guard let node = hitTestResults.first?.node else {
+                return
+            }
+            for (key, value) in AppData.nodeDict {
+                if (value == node) {
+                    // send the key to delete
+                    Socket.sharedInstance.sendDeleteEmit(index: key)
+                }
+            }
+            node.removeFromParentNode()
+            
+        }        
+        
+        
     }
     
     override func onGetData(message: String) {
