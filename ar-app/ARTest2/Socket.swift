@@ -57,7 +57,8 @@ class Socket: NSObject {
     
     func sendWinEmit() {
         let socket = manager.defaultSocket
-        socket.emit("user", UIDevice.current.name)
+        socket.emit("win", "Fuck me zaddy")
+        
     }
     
     func sendDeleteEmit(index: Int) {
@@ -121,9 +122,7 @@ class Socket: NSObject {
             AppData.hostObjectNode = toAddNode
             AppData.nodeDict[counter] = toAddNode
             SwiftSpinner.hide()
-            if (AppData.CurrentViewController is ViewController) {
-                (AppData.CurrentViewController as! ViewController).showAndPlayGame()
-            }
+            (AppData.CurrentViewController as! ViewController).loadGameMap()
         }
         socket.on("deleteObject") {(dataArray, socketAck) -> Void in
             let index:Int = dataArray[0] as! Int
@@ -133,6 +132,7 @@ class Socket: NSObject {
         socket.on("endGame") { (dataArray, socketAck) -> Void in
             let isGameOver: Bool = dataArray[0] as! Bool
             if (isGameOver) {
+                print("They didn't want you to win but you fucking did it. ")
                 AppData.CurrentViewController?.performSegue(withIdentifier: "results", sender: nil)
             }
             
