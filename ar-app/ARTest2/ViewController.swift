@@ -14,8 +14,9 @@ class ViewController: UIViewController
     @IBOutlet weak var sceneView: ARSCNView!
     
     func createGameMap() {
-        for prop in AppData.propsDict {
-            addModel(x: prop["x"] as! Float, y: prop["y"] as! Float, z: prop["z"] as! Float, modelNum: prop["model"] as! Int)
+        for index in 0 ... AppData.propsDict.count {
+            var currProp = AppData.propsDict[index]
+            addModel(x: currProp["x"] as! Float, y: currProp["y"] as! Float, z: currProp["z"] as! Float, modelNum: currProp["model"] as! Int, Index: index)
         }
     }
     
@@ -72,7 +73,7 @@ class ViewController: UIViewController
         AppData.CurrentViewController = self
     }
     
-    func addModel(x: Float = 0, y: Float = 0, z: Float = -0.2, modelNum:Int) {
+    func addModel(x: Float = 0, y: Float = 0, z: Float = -0.2, modelNum:Int, Index: Int) {
         let node = SCNNode()
         var mObj:ModelAR? = nil
         switch (modelNum) {
@@ -98,6 +99,7 @@ class ViewController: UIViewController
         }
         node.scale = SCNVector3(x: mObj!.x!, y: mObj!.y!, z: mObj!.z!)
         node.position = SCNVector3(x, y, z)
+        AppData.nodeDict[Index] = node
         sceneView.scene.rootNode.addChildNode(node)
     }
     
@@ -135,6 +137,13 @@ class ViewController: UIViewController
         sceneView.scene.rootNode.addChildNode(boxNode)
     }
     
+    func sendPropsDict() {
+        for prop in AppData.propsDict {
+            let data = NSKeyedArchiver.archivedData(withRootObject: prop)
+            MPCServiceManager.sharedInstance.sendToPlayers(message: data)
+        }
+    }
+    
     @IBAction func onSend(_ sender: UIButton) {
         var messageHash: [String: Any] = [:]
         messageHash["model"] = 1
@@ -152,23 +161,26 @@ class ViewController: UIViewController
     }
     
     @objc func didTap(withGestureRecognizer recognizer: UIGestureRecognizer) {
+        
         let tapLocation = recognizer.location(in: sceneView)
         let hitTestResults = sceneView.hitTest(tapLocation)
         guard let node = hitTestResults.first?.node else {
-            let hitTestResultsWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
-            if let hitTestResultWithFeaturePoints = hitTestResultsWithFeaturePoints.first {
-                let translation = hitTestResultWithFeaturePoints.worldTransform.translation
-                //addBox
-            }
-            return
+            // check if host (only host can add block)
+            if (AppData.currPlayerType == PlayerType.Host) {
+            
+                let hitTestResultsWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
+                if let hitTestResultWithFeaturePoints = hitTestResultsWithFeaturePoints.first {
+                    let translation = hitTestResultWithFeaturePoints.worldTransform.translation
+                    
+                    Socket.sharedInstance.addTargetObject(modelNum: Int(arc4random_uniform(4)), x: translation.x, y: translation.y, z: translation.z)
+                }
         }
+        return
+    }
         for (key, value) in AppData.nodeDict {
             if (value == node) {
                 // send the key to delete
-                var deleteDict:[PlayerMessages: Int] = [:]
-                deleteDict[PlayerMessages.DeleteIndex] = key
-                let data = NSKeyedArchiver.archivedData(withRootObject: deleteDict)
-                MPCServiceManager.sharedInstance.sendToHost(message: data)
+                Socket.sharedInstance.sendDeleteEmit(index: key)
             }
         }
         node.removeFromParentNode()

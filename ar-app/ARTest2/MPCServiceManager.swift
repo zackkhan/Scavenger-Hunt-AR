@@ -151,14 +151,16 @@ extension MPCServiceManager : MCSessionDelegate {
                 print("Get Coordinate")
                 
             case .InitialGameHash:
-                let value: [Int: SCNNode] = resultsHash![resultsHash!.keys.first!]! as! [Int: SCNNode]
-                AppData.nodeDict = value
-                for key in AppData.nodeDict.keys {
-                    AppData.CurrentViewController?.addNode(node: AppData.nodeDict[key]!)
+            //construct a hash
+                let val: Array<[String: Any]> = resultsHash![resultsHash!.keys.first!]! as! Array<[String: Any]>
+                for index in 0...val.count {
+                let currDict = val[index]
+                    (AppData.CurrentViewController as! ViewController?)?.addModel(x:currDict["x"] as! Float, y:currDict["y"] as! Float, z:currDict["z"] as! Float, modelNum:currDict["model"] as! Int, Index: index as! Int)
                 }
             case .HostIdentifier:
                 let value: String = resultsHash![resultsHash!.keys.first!]! as! String
                 AppData.hostPeerId = value
+                
             case .Winner:
                 print("Winner")
             case .StartGame:
@@ -181,7 +183,6 @@ extension MPCServiceManager : MCSessionDelegate {
         }
     }
     
-    func
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
         print("did recieve stream")

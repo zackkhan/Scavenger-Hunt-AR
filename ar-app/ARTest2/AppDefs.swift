@@ -31,3 +31,10 @@ enum PlayerType: String {
     case Host = "Host"
     case Player = "Player"
 }
+
+enum Model: Int {
+    case Penguin  = 0
+    case Sunglass = 1
+    case Soccer = 2
+    case Ball = 3
+}

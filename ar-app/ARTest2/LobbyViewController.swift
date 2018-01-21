@@ -39,6 +39,7 @@ class LobbyViewController: UIViewController {
     }
     
     private func initialize() {
+        AppData.CurrentViewController = self
         if (AppData.currPlayerType == .Player) {
             btnStartGame.isHidden = true
             readyButton.isHidden = false
@@ -52,8 +53,6 @@ class LobbyViewController: UIViewController {
             var data:Data = NSKeyedArchiver.archivedData(withRootObject: isHostMessage)
             MPCServiceManager.sharedInstance.sendToPlayers(message: data)
         }
-        
-        
     }
 
     @IBAction func onStartGame(_ sender: UIButton) {

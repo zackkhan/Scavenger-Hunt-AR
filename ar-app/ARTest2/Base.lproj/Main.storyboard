@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -104,45 +104,81 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3e-1H-VnI">
-                                <rect key="frame" x="0.0" y="20" width="414" height="368"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Create Game"/>
-                                <connections>
-                                    <action selector="onCreateGame:" destination="J4c-0G-pxs" eventType="touchUpInside" id="V64-16-3vh"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j42-7e-QaR">
-                                <rect key="frame" x="0.0" y="388" width="414" height="348"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="NdW-x8-DEu">
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j42-7e-QaR">
+                                <rect key="frame" x="0.0" y="502" width="414" height="104"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="j42-7e-QaR" secondAttribute="height" multiplier="188:48" id="r9g-hf-U30"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Join Game"/>
                                 <connections>
                                     <action selector="onJoinGame:" destination="J4c-0G-pxs" eventType="touchUpInside" id="qy2-aP-jXd"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text" translatesAutoresizingMaskIntoConstraints="NO" id="qN2-9f-ulx">
+                                <rect key="frame" x="0.0" y="20" width="414" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="qN2-9f-ulx" secondAttribute="height" multiplier="15:8" id="8FV-wu-D6C"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3e-1H-VnI">
+                                <rect key="frame" x="0.0" y="606" width="414" height="130"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="A3e-1H-VnI" secondAttribute="height" multiplier="188:59" id="0ja-pt-1ip"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <state key="normal" title="Create Game"/>
+                                <connections>
+                                    <action selector="onCreateGame:" destination="J4c-0G-pxs" eventType="touchUpInside" id="V64-16-3vh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="A3e-1H-VnI" firstAttribute="leading" secondItem="BNr-wg-aY1" secondAttribute="leading" id="6jF-uF-kvU"/>
-                            <constraint firstItem="A3e-1H-VnI" firstAttribute="top" secondItem="BNr-wg-aY1" secondAttribute="top" id="DKJ-Q1-bBJ"/>
-                            <constraint firstItem="A3e-1H-VnI" firstAttribute="height" secondItem="Vc7-Ug-3pe" secondAttribute="height" multiplier="0.5" id="Rdo-AT-Pmv"/>
-                            <constraint firstItem="j42-7e-QaR" firstAttribute="top" secondItem="A3e-1H-VnI" secondAttribute="bottom" id="V9U-dc-civ"/>
-                            <constraint firstItem="BNr-wg-aY1" firstAttribute="trailing" secondItem="A3e-1H-VnI" secondAttribute="trailing" id="aJU-uT-3j3"/>
-                            <constraint firstItem="BNr-wg-aY1" firstAttribute="trailing" secondItem="j42-7e-QaR" secondAttribute="trailing" id="bdd-1c-EWl"/>
-                            <constraint firstItem="j42-7e-QaR" firstAttribute="leading" secondItem="BNr-wg-aY1" secondAttribute="leading" id="eAF-sY-yTW"/>
-                            <constraint firstItem="BNr-wg-aY1" firstAttribute="bottom" secondItem="j42-7e-QaR" secondAttribute="bottom" id="sf4-ey-ell"/>
+                            <constraint firstItem="NdW-x8-DEu" firstAttribute="top" secondItem="BNr-wg-aY1" secondAttribute="top" id="9K8-r9-c0f"/>
+                            <constraint firstItem="BNr-wg-aY1" firstAttribute="bottom" secondItem="NdW-x8-DEu" secondAttribute="bottom" id="Ap3-eZ-mPh"/>
+                            <constraint firstItem="A3e-1H-VnI" firstAttribute="leading" secondItem="BNr-wg-aY1" secondAttribute="leading" id="BgQ-Yt-No1"/>
+                            <constraint firstItem="qN2-9f-ulx" firstAttribute="bottom" secondItem="BNr-wg-aY1" secondAttribute="top" id="Gyv-Ml-SrB"/>
+                            <constraint firstItem="qN2-9f-ulx" firstAttribute="leading" secondItem="BNr-wg-aY1" secondAttribute="leading" id="HSm-VV-X5X"/>
+                            <constraint firstItem="NdW-x8-DEu" firstAttribute="top" secondItem="BNr-wg-aY1" secondAttribute="top" id="J8b-4U-c7Q"/>
+                            <constraint firstItem="NdW-x8-DEu" firstAttribute="leading" secondItem="BNr-wg-aY1" secondAttribute="leading" id="KqX-Wh-dkN"/>
+                            <constraint firstItem="BNr-wg-aY1" firstAttribute="trailing" secondItem="NdW-x8-DEu" secondAttribute="trailing" id="L2d-ZN-jSh"/>
+                            <constraint firstItem="A3e-1H-VnI" firstAttribute="trailing" secondItem="BNr-wg-aY1" secondAttribute="trailing" id="OSv-0P-nT2"/>
+                            <constraint firstItem="j42-7e-QaR" firstAttribute="leading" secondItem="BNr-wg-aY1" secondAttribute="leading" id="QuK-MQ-aCv"/>
+                            <constraint firstItem="qN2-9f-ulx" firstAttribute="top" secondItem="BNr-wg-aY1" secondAttribute="top" id="aLB-Gm-Udj"/>
+                            <constraint firstItem="A3e-1H-VnI" firstAttribute="top" secondItem="j42-7e-QaR" secondAttribute="bottom" id="c3R-9o-4O1"/>
+                            <constraint firstItem="j42-7e-QaR" firstAttribute="trailing" secondItem="BNr-wg-aY1" secondAttribute="trailing" id="ecc-xM-XgF"/>
+                            <constraint firstItem="A3e-1H-VnI" firstAttribute="bottom" secondItem="BNr-wg-aY1" secondAttribute="bottom" id="flF-f4-Roi"/>
+                            <constraint firstItem="BNr-wg-aY1" firstAttribute="trailing" secondItem="qN2-9f-ulx" secondAttribute="trailing" id="n2D-aN-NV2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BNr-wg-aY1"/>
                     </view>
                     <connections>
+                        <outlet property="bottom_create_btn_constraint" destination="flF-f4-Roi" id="9ha-gL-os8"/>
+                        <outlet property="bottom_join_button_constraint" destination="c3R-9o-4O1" id="aPe-x5-BQw"/>
+                        <outlet property="bottom_logo_constraint" destination="Gyv-Ml-SrB" id="4WD-5s-80W"/>
                         <outlet property="btnCreateGame" destination="A3e-1H-VnI" id="KxW-7w-t4R"/>
                         <outlet property="btnJoinGame" destination="j42-7e-QaR" id="RL6-Nn-HGc"/>
+                        <outlet property="left_create_btn_constraint" destination="BgQ-Yt-No1" id="Acl-bh-zR9"/>
+                        <outlet property="left_join_btn_constraint" destination="QuK-MQ-aCv" id="ARg-Wr-ms8"/>
+                        <outlet property="right_create_btn_constraint" destination="OSv-0P-nT2" id="zAS-A7-4m2"/>
+                        <outlet property="right_join_btn_constraint" destination="ecc-xM-XgF" id="mSB-eP-N7m"/>
+                        <outlet property="top_logo_constraint" destination="aLB-Gm-Udj" id="4k7-va-5Qb"/>
                         <segue destination="dtf-wM-TcL" kind="show" identifier="moveToLobby" id="P5N-XF-yuK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pKG-C6-0oo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="88" y="131"/>
+            <point key="canvasLocation" x="86.956521739130437" y="130.43478260869566"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bg" width="375" height="812"/>
+        <image name="text" width="331" height="76"/>
+    </resources>
 </document>
