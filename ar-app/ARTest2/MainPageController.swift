@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import SwiftSpinner
 
 class MainPageController: UIViewController {
+    
 
     @IBOutlet weak var btnCreateGame: UIButton!
     
@@ -36,6 +38,7 @@ class MainPageController: UIViewController {
     
     @IBAction func onJoinGame(_ sender: UIButton) {
         AppData.currPlayerType = .Player
+        SwiftSpinner.show("Waiting for Host to Hide Object...")
         self.performSegue(withIdentifier: "moveToLobby", sender: nil)
     }
     override func viewDidLoad() {
