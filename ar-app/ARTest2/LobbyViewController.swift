@@ -7,42 +7,57 @@
 //
 
 import UIKit
+import MultipeerConnectivity
+import SwiftSpinner
 
 class LobbyViewController: UIViewController {
 
     @IBOutlet weak var readyButton: UIButton!
     @IBOutlet weak var countLabel: UILabel!
     
-    @IBAction func readyClick(_ sender: Any) {
-        if AppData.currPlayerType == PlayerType.Host {
-            AppData.propsDict = createPropsDict()
-        }
-        self.performSegue(withIdentifier: "moveToGame", sender: nil)
-    }
+    @IBOutlet weak var btnStartGame: UIButton!
     
-    func getRandomValue (lower:Float, upper:Float) -> Float{
-        let arc4randoMax:Double = 0x100000000
-        let ab = (Double(arc4random()) / arc4randoMax)
-        return Float(ab) * (upper - lower) + lower
-    }
+    private var readyPlayers: Array<String> = Array<String>()
     
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        initialize()
 
-        // Do any additional setup after loading the view.
     }
     
-    func createPropsDict() -> Array<[String: Any]> {
-        var propsDict: Array<[String: Any]> = []
-        for i in 0...100 {
-            var props: [String: Any] = [:]
-            props["model"] = Int(arc4random_uniform(4))
-            props["x"] = getRandomValue(lower: -2.0, upper: 2.0)
-            props["y"] = getRandomValue(lower: -2.0, upper: 2.0)
-            props["z"] = getRandomValue(lower: -1.0, upper: 2.0)
-            propsDict.append(props)
+    private func initialize() {
+        AppData.CurrentViewController = self
+        if (AppData.currPlayerType == .Player) {
+            btnStartGame.isHidden = true
+            readyButton.isHidden = false
+        } else {
+            btnStartGame.isHidden = false
+            readyButton.isHidden = true
         }
-        return propsDict
+        Socket.sharedInstance.generateGameMap()
+    }
+
+    
+    @IBAction func readyClick(_ sender: Any) {
+        Socket.sharedInstance.sendReadyEmit()
+        Socket.sharedInstance.getGameMap()
     }
     
+
+    @IBAction func onStartGame(_ sender: UIButton) {
+        Socket.sharedInstance.generateGameMap()
+        Socket.sharedInstance.getGameMap()
+    }
+    
+    /*
+ var startGameMessage: [String: Bool] = [:]
+ startGameMessage[PlayerMessages.StartGame.rawValue] = true
+ if (AppData.currPlayerType == .Player) {
+ SwiftSpinner.show("Waiting for Host to Hide Object...")
+ }
+ 
+ */
+ 
+
 }
