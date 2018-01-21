@@ -10,6 +10,7 @@ import UIKit
 
 import SocketIO
 import ARKit
+import SwiftSpinner
 
 class Socket: NSObject {
     
@@ -117,6 +118,7 @@ class Socket: NSObject {
             let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: myJson)!
             let counter = AppData.nodeDict.count
             AppData.nodeDict[counter] = toAddNode
+            SwiftSpinner.hide()
         }
         socket.on("deleteObject") {(dataArray, socketAck) -> Void in
             let index:Int = dataArray[0] as! Int

@@ -8,7 +8,7 @@
 
 import UIKit
 import ARKit
-
+import SwiftSpinner
 class ViewController: UIViewController
 {    
     @IBOutlet weak var sceneView: ARSCNView!
@@ -58,7 +58,7 @@ class ViewController: UIViewController
         if AppData.currPlayerType == PlayerType.Host {
             loadGameMap()
         } else {
-            
+                SwiftSpinner.show("Waiting for Host to Hide Object...")
         }
         addTapGestureToSceneView()
         AppData.CurrentViewController = self
