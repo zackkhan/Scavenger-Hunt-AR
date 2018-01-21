@@ -139,7 +139,7 @@ extension MPCServiceManager : MCSessionDelegate {
     }
     
     func onPlayerReceivedData(session: MCSession, didReceieve data: Data, fromPeer peerID: MCPeerID) {
-        let resultsHash: [String: Any]? = NSKeyedUnarchiver.unarchiveObject(with: data) as! [String : Any]?
+       /* let resultsHash: [String: Any]? = NSKeyedUnarchiver.unarchiveObject(with: data) as! [String : Any]?
         if (resultsHash != nil && resultsHash?.keys.first != nil) {
             let messageType:PlayerMessages = PlayerMessages(rawValue: (resultsHash?.keys.first)!)!
             switch (messageType) {
@@ -154,7 +154,7 @@ extension MPCServiceManager : MCSessionDelegate {
             //construct a hash
                 let val: Array<[String: Any]> = resultsHash![resultsHash!.keys.first!]! as! Array<[String: Any]>
                 for index in 0...val.count {
-                let currDict = val[index]
+               let currDict = val[index]
                     (AppData.CurrentViewController as! ViewController?)?.addModel(x:currDict["x"] as! Float, y:currDict["y"] as! Float, z:currDict["z"] as! Float, modelNum:currDict["model"] as! Int, Index: index as! Int)
                 }
             case .HostIdentifier:
@@ -166,7 +166,7 @@ extension MPCServiceManager : MCSessionDelegate {
             case .StartGame:
                 self.delegate?.startedGame(manager: MPCServiceManager.sharedInstance)
             }
-        }
+        }*/
     }
     
     func onHostReceivedData(session: MCSession, didReceieve data: Data, fromPeer peerID: MCPeerID) {

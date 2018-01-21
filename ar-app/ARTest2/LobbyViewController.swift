@@ -8,12 +8,10 @@
 
 import UIKit
 import MultipeerConnectivity
+import SwiftSpinner
 
 class LobbyViewController: UIViewController {
 
-    @IBAction func mapAction(_ sender: Any) {
-        //Socket.sharedInstance.emit
-    }
     @IBOutlet weak var readyButton: UIButton!
     @IBOutlet weak var countLabel: UILabel!
     
@@ -40,6 +38,7 @@ class LobbyViewController: UIViewController {
         }
         Socket.sharedInstance.generateGameMap()
     }
+
     
     @IBAction func readyClick(_ sender: Any) {
         Socket.sharedInstance.sendReadyEmit()
@@ -51,5 +50,15 @@ class LobbyViewController: UIViewController {
         Socket.sharedInstance.generateGameMap()
         Socket.sharedInstance.getGameMap()
     }
+    
+    /*
+ var startGameMessage: [String: Bool] = [:]
+ startGameMessage[PlayerMessages.StartGame.rawValue] = true
+ if (AppData.currPlayerType == .Player) {
+ SwiftSpinner.show("Waiting for Host to Hide Object...")
+ }
+ 
+ */
+ 
 
 }

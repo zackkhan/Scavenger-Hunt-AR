@@ -17,7 +17,6 @@ class ViewController: UIViewController
     func createGameMap() {
         for index in 0 ... AppData.propsDict.count {
             var currProp = AppData.propsDict[index]
-            addModel(x: currProp["x"] as! Float, y: currProp["y"] as! Float, z: currProp["z"] as! Float, modelNum: currProp["model"] as! Int, Index: index)
         }
     }
     
