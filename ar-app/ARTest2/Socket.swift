@@ -15,7 +15,7 @@ import SwiftSpinner
 class Socket: NSObject {
     
     static let sharedInstance:Socket = Socket()
-    let manager = SocketManager(socketURL: URL(string: "http://server-scavenger-dev.us-east-1.elasticbeanstalk.com/")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "http://172.16.87.201:3000/")!, config: [.log(true), .compress])
     
     override init() {
         super.init()

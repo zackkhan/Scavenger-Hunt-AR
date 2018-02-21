@@ -1,6 +1,7 @@
 var port = process.env.PORT || 3000,
 io = require('socket.io')();
 io.listen(port);
+console.log("Alright we gucci");
 
 var users = new Map(),
     gameMap = [],
@@ -18,9 +19,9 @@ function getRandomInt(min, max) {
 
 function generateGameMap(){
     gameMap = []
-    for (i = 0; i<1000; i++) {
+    for (i = 0; i<100; i++) {
         gameMap.push({
-            'modelNum': getRandomInt(0,4),
+            'modelNum': getRandomInt(0,3),
             'x': getRandomNumber(-2.0, 2.0),
             'y': getRandomNumber(-2.0, 2.0),
             'z': getRandomNumber(-1.0, 2.0)
@@ -30,6 +31,9 @@ function generateGameMap(){
 }
 
 io.on('connection', function (client) {
+
+    console.log("Alright we connected");
+
     client.on('hostConnect', function (data) {
         users.set(client, data.id);
         host = {id: data.id, socket: client};

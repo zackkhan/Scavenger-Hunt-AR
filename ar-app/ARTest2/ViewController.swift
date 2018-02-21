@@ -73,7 +73,7 @@ class ViewController: UIViewController
                     let hitTestResultsWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
                     if let hitTestResultWithFeaturePoints = hitTestResultsWithFeaturePoints.first {
                         let translation = hitTestResultWithFeaturePoints.worldTransform.translation
-                        let modelNum: Int = Int(arc4random_uniform(4))
+                        let modelNum: Int = 3
                         let x:Float = translation.x
                         let y: Float = translation.y
                         let z: Float = translation.z
@@ -121,9 +121,6 @@ class ViewController: UIViewController
         sceneView.scene.rootNode.addChildNode(node)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let resultVC: Resul
-    }
     
     
 }

@@ -22,14 +22,14 @@ extension SCNNode {
             
             
             switch model {
-            case .Penguin:
-                mObj = ModelAR.PENGUIN
             case .Ball:
                 mObj = ModelAR.BALL
             case .Soccer:
                 mObj = ModelAR.SOCCER
             case .Sunglass:
                 mObj = ModelAR.SUNGLASSES
+            case .Penguin:
+                mObj = ModelAR.PENGUIN
             }
             
             let currNode:SCNNode = SCNNode()
@@ -53,14 +53,14 @@ extension SCNNode {
         let model: Model = Model(rawValue: modelNum)!
 
         switch model {
-        case .Penguin:
-            mObj = ModelAR.PENGUIN
         case .Ball:
             mObj = ModelAR.BALL
         case .Soccer:
             mObj = ModelAR.SOCCER
         case .Sunglass:
             mObj = ModelAR.SUNGLASSES
+        case .Penguin:
+            mObj = ModelAR.PENGUIN
         }
         
         let currNode:SCNNode = SCNNode()
