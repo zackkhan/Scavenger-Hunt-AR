@@ -153,6 +153,162 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+            filePath = "ARTest2/MainPageController.swift"
+            timestampString = "538236195.022174"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "MainPageController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ARTest2.MainPageController.btnJoinGame.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UIButton&gt;"
+                  moduleName = "ARTest2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/metrostar/Scavenger-Hunt-ARDev/ar-app/ARTest2/MainPageController.swift"
+                  timestampString = "538234248.176764"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ARTest2.MainPageController.btnJoinGame.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UIButton&gt;"
+                  moduleName = "ARTest2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/metrostar/Scavenger-Hunt-ARDev/ar-app/ARTest2/MainPageController.swift"
+                  timestampString = "538234248.178439"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ARTest2.MainPageController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; ARTest2.MainPageController"
+                  moduleName = "ARTest2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/metrostar/Scavenger-Hunt-ARDev/ar-app/ARTest2/MainPageController.swift"
+                  timestampString = "538234248.1800719"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "196">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ARTest2.MainPageController.init(coder: __ObjC.NSCoder) -&gt; Swift.Optional&lt;ARTest2.MainPageController&gt;"
+                  moduleName = "ARTest2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/metrostar/Scavenger-Hunt-ARDev/ar-app/ARTest2/MainPageController.swift"
+                  timestampString = "538234248.181744"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "152">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ARTest2/MainPageController.swift"
+            timestampString = "538236195.022235"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "MainPageController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ARTest2.MainPageController.bottom_create_btn_constraint.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.NSLayoutConstraint&gt;"
+                  moduleName = "ARTest2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/metrostar/Scavenger-Hunt-ARDev/ar-app/ARTest2/MainPageController.swift"
+                  timestampString = "538234248.187147"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ARTest2.MainPageController.bottom_create_btn_constraint.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.NSLayoutConstraint&gt;"
+                  moduleName = "ARTest2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/metrostar/Scavenger-Hunt-ARDev/ar-app/ARTest2/MainPageController.swift"
+                  timestampString = "538234248.188795"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ARTest2.MainPageController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; ARTest2.MainPageController"
+                  moduleName = "ARTest2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/metrostar/Scavenger-Hunt-ARDev/ar-app/ARTest2/MainPageController.swift"
+                  timestampString = "538234248.1904041"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "372">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ARTest2.MainPageController.init(coder: __ObjC.NSCoder) -&gt; Swift.Optional&lt;ARTest2.MainPageController&gt;"
+                  moduleName = "ARTest2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/metrostar/Scavenger-Hunt-ARDev/ar-app/ARTest2/MainPageController.swift"
+                  timestampString = "538234248.192121"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "328">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
             filePath = "ARTest2/MPCServiceManager.swift"
             timestampString = "538214632.583348"
             startingColumnNumber = "9223372036854775807"

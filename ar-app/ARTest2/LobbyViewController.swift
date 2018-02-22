@@ -13,10 +13,10 @@ import SwiftSpinner
 class LobbyViewController: UIViewController {
 
     @IBOutlet weak var countLabel: UILabel!
-    
+    @IBOutlet weak var btnView: UIView!
     @IBOutlet weak var btnStart: UIButton!
     
-    @IBOutlet weak var btnView: UIView!
+    
     private var readyPlayers: Array<String> = Array<String>()
     
    
@@ -32,14 +32,10 @@ class LobbyViewController: UIViewController {
         if (AppData.currPlayerType == .Player) {
             btnStart.setTitle("Ready To Play?", for: .normal)
         } else {
-           btnStart.setTitle("Start Game", for: .normal)
+            btnStart.setTitle("Start Game", for: .normal)
         }
-        
-        Socket.sharedInstance.generateGameMap()
     }
 
-    @IBOutlet weak var btnOnStart: UIButton!
-    
     @IBAction func btnOnStart(_ sender: UIButton) {
         if (AppData.currPlayerType == .Host) {
             Socket.sharedInstance.generateGameMap()
@@ -49,6 +45,7 @@ class LobbyViewController: UIViewController {
             Socket.sharedInstance.getGameMap()
         }
     }
+    
     
     /*
  var startGameMessage: [String: Bool] = [:]

@@ -8,7 +8,7 @@
 
 import UIKit
 import ARKit
-import SwiftSpinner
+
 class ViewController: UIViewController
 {    
     @IBOutlet weak var sceneView: ARSCNView!
@@ -73,7 +73,7 @@ class ViewController: UIViewController
                     let hitTestResultsWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
                     if let hitTestResultWithFeaturePoints = hitTestResultsWithFeaturePoints.first {
                         let translation = hitTestResultWithFeaturePoints.worldTransform.translation
-                        let modelNum: Int = 3
+                        let modelNum: Int = 0
                         let x:Float = translation.x
                         let y: Float = translation.y
                         let z: Float = translation.z
@@ -94,7 +94,7 @@ class ViewController: UIViewController
             }
             
             if (node.worldPosition.x == AppData.hostObjectNode?.position.x && node.worldPosition.y == AppData.hostObjectNode?.position.y && node.worldPosition.z == AppData.hostObjectNode?.position.z){
-             Socket.sharedInstance.sendWinEmit()
+                Socket.sharedInstance.sendWinEmit()
              return
             }
             for (key, value) in AppData.nodeDict {
@@ -109,9 +109,6 @@ class ViewController: UIViewController
         
         
     }
-    func showAndPlayGame() {
-        loadGameMap()
-    }
     
     override func onGetData(message: String) {
         print("Hello")
@@ -120,7 +117,10 @@ class ViewController: UIViewController
     override func addNode(node: SCNNode) {
         sceneView.scene.rootNode.addChildNode(node)
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let resultVC: ResultViewController = segue.destination as! ResultViewController
+        
+    }
     
     
 }

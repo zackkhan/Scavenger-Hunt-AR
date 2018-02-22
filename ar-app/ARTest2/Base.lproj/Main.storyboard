@@ -57,7 +57,7 @@
         <!--ResultsViewControl-->
         <scene sceneID="mgB-Ps-vWp">
             <objects>
-                <viewController title="ResultsViewControl" id="Ao2-JN-QAr" sceneMemberID="viewController">
+                <viewController title="ResultsViewControl" id="Ao2-JN-QAr" customClass="ResultViewController" customModule="ARTest2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kec-YJ-S05">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -77,6 +77,9 @@
                                         <state key="normal" title="PLAY AGAIN">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onPlayAgain:" destination="Ao2-JN-QAr" eventType="touchUpInside" id="nH5-gG-IEW"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.2627450980392157" green="0.12156862745098039" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
@@ -97,6 +100,9 @@
                                         <state key="normal" title="BACK HOME">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onBackHome:" destination="Ao2-JN-QAr" eventType="touchUpInside" id="j8a-6o-ebH"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1764705882352941" green="0.078431372549019607" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
@@ -124,6 +130,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kmp-77-4vi"/>
                     </view>
+                    <connections>
+                        <outlet property="superView" destination="Kec-YJ-S05" id="w85-6Z-5BG"/>
+                        <outlet property="yourResultLabel" destination="W7v-gf-ZyH" id="ydF-T5-ggO"/>
+                        <segue destination="dtf-wM-TcL" kind="show" identifier="playAgain" id="FAC-7o-hNd"/>
+                        <segue destination="J4c-0G-pxs" kind="show" identifier="backHome" id="VWT-H7-shy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2d1-jk-zv5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -156,7 +168,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="btnOnStart:" destination="dtf-wM-TcL" eventType="touchUpInside" id="nPW-B5-nzm"/>
+                                            <action selector="btnOnStart:" destination="dtf-wM-TcL" eventType="touchUpInside" id="3sf-wP-JvK"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -197,8 +209,8 @@
                         <viewLayoutGuide key="safeArea" id="aEI-Ie-bkJ"/>
                     </view>
                     <connections>
-                        <outlet property="btnStart" destination="P33-nl-238" id="DXe-cc-JBq"/>
-                        <outlet property="btnView" destination="vaN-0b-cjY" id="vkZ-Me-2H7"/>
+                        <outlet property="btnStart" destination="P33-nl-238" id="UJ0-Yu-KTx"/>
+                        <outlet property="btnView" destination="vaN-0b-cjY" id="VoN-Xz-HWx"/>
                         <outlet property="countLabel" destination="8OG-vK-BHZ" id="P7Q-cO-TVd"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="startGame" id="Z8l-QB-8Wi"/>
                     </connections>
@@ -292,6 +304,7 @@
         <image name="text" width="331" height="76"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="FAC-7o-hNd"/>
         <segue reference="Z8l-QB-8Wi"/>
     </inferredMetricsTieBreakers>
 </document>

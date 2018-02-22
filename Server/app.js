@@ -19,7 +19,7 @@ function getRandomInt(min, max) {
 
 function generateGameMap(){
     gameMap = []
-    for (i = 0; i<100; i++) {
+    for (i = 0; i<1000; i++) {
         gameMap.push({
             'modelNum': getRandomInt(0,3),
             'x': getRandomNumber(-2.0, 2.0),

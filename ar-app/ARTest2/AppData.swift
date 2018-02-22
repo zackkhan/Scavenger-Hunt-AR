@@ -18,4 +18,5 @@ class AppData: NSObject {
     static var propsDict: Array<[String: Any]> = Array<[String: Any]>()
     static var goalObjectDict:[String:Any] = [:]
     static var hostObjectNode:SCNNode? = nil
+    static var didWin: Bool = false
 }

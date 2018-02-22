@@ -15,7 +15,7 @@ import SwiftSpinner
 class Socket: NSObject {
     
     static let sharedInstance:Socket = Socket()
-    let manager = SocketManager(socketURL: URL(string: "http://172.16.87.201:3000/")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "http://192.168.1.153:3000/")!, config: [.log(true), .compress])
     
     override init() {
         super.init()
@@ -117,11 +117,10 @@ class Socket: NSObject {
         socket.on("hostObject") { (dataArray, socketAck) -> Void in
             let myJson: [String: Any] = dataArray[0] as! [String: Any]
             
-            let toAddNode:SCNNode = SCNNode.buildFromJson(jsonObject: myJson)!
+            let toAddNode:SCNNode = SCNNode.buildFromJson2(jsonObject: myJson)!
             let counter = AppData.nodeDict.count
             AppData.hostObjectNode = toAddNode
             AppData.nodeDict[counter] = toAddNode
-            SwiftSpinner.hide()
             (AppData.CurrentViewController as! ViewController).loadGameMap()
         }
         socket.on("deleteObject") {(dataArray, socketAck) -> Void in
@@ -131,11 +130,13 @@ class Socket: NSObject {
         
         socket.on("endGame") { (dataArray, socketAck) -> Void in
             let isGameOver: Bool = dataArray[0] as! Bool
-            if (isGameOver) {
                 print("They didn't want you to win but you fucking did it. ")
+                AppData.didWin = isGameOver
                 AppData.CurrentViewController?.performSegue(withIdentifier: "results", sender: nil)
-            }
-            
+        }
+        
+        socket.on("reset") { (dataArray, socketAck) -> Void in
+            AppData.CurrentViewController?.performSegue(withIdentifier: "results", sender: nil)
         }
         
     }

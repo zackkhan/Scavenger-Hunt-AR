@@ -33,8 +33,8 @@ enum PlayerType: String {
 }
 
 enum Model: Int {
-    case Sunglass = 0
-    case Soccer = 1
-    case Ball = 2
-    case Penguin = 3
+    case Penguin  = 0
+    case Sunglass = 1
+    case Soccer = 2
+    case Ball = 3
 }
